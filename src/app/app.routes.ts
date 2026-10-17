@@ -1,0 +1,22 @@
+import { Routes } from '@angular/router';
+export const routes: Routes = [
+   {
+      path: '',
+      loadComponent: () => import('./shared/tabs.shared').then( m => m.TabsMenu ),
+      children: [
+         {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'home',
+         },
+         {
+            path: 'home',
+            loadComponent: () => import('./home/screens/home.screen').then( m => m.HomeScreen ),
+         },
+         {
+            path: 'settings',
+            loadComponent: () => import('./settings/screens/settings.screen').then( m => m.SettingsScreen ),
+         }
+      ],
+   }
+];
