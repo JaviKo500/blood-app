@@ -5,7 +5,7 @@ import { Text } from "@ng-native/components";
    selector: 'home-screen',
    imports: [Text],
    template:`
-      <text class="">HomeScreen</text>
+      <text class="text-2xl font-bold text-red-500">HomeScreen</text>
    `,
 })
 
