@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SafeAreaProvider, SafeAreaView, } from '@ng-native/components';
+import { SafeAreaProvider, } from '@ng-native/components';
 import { nativePlatform } from '@ng-native/fabric';
 import { NativeStackOutlet } from '@ng-native/router';
 
@@ -8,13 +8,11 @@ import { NativeStackOutlet } from '@ng-native/router';
  * read as an unknown Angular component and commits as a plain view with nothing in it.
  */
 @Component({
-  imports: [ SafeAreaProvider, SafeAreaView, NativeStackOutlet],
+  imports: [ SafeAreaProvider, NativeStackOutlet],
   selector: 'app-root',
   template: `
     <safe-area-provider>
       <native-stack-outlet />
-      <!-- <safe-area-view class="screen">
-      </safe-area-view> -->
     </safe-area-provider>
   `,
   host: { '[class]': 'platformClass', '[style]': 'fill' },
