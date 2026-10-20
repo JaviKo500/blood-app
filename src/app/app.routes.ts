@@ -11,7 +11,7 @@ export const routes: Routes = [
          },
          {
             path: 'home',
-            loadComponent: () => import('./home/screens/home.stack').then( m => m.HomeStack ),
+            loadComponent: () => import('./home/home.stack').then( m => m.HomeStack ),
             children: [
                {
                   path: '',
@@ -21,7 +21,13 @@ export const routes: Routes = [
          },
          {
             path: 'settings',
-            loadComponent: () => import('./settings/screens/settings.screen').then( m => m.SettingsScreen ),
+            loadComponent: () => import('./settings/settings.stack').then( m => m.SettingsStack ),
+            children: [
+               {
+                  path:'',
+                  loadComponent: () => import('./settings/screens/settings.screen').then( m => m.SettingsScreen ),
+               }
+            ]
          }
       ],
    }

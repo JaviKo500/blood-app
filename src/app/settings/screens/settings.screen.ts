@@ -1,11 +1,14 @@
 import { Component } from "@angular/core";
-import { Text } from "@ng-native/components";
+import { Text, View, Pressable } from "@ng-native/components";
+import { AppBar } from "../../shared/appbar.shared";
 
 @Component({
    selector: 'settings-screen',
-   imports: [Text],
+   imports: [AppBar, View],
    template:`
-      <text class="">SettingsScreen</text>
+      <view class="flex-1 px-4">
+         <app-bar title="Settings"></app-bar>
+      </view>
    `,
 })
 

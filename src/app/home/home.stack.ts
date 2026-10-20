@@ -3,10 +3,10 @@ import { NativeStackOutlet } from "@ng-native/router";
 
 @Component({
    selector: 'home-stack',
+   imports: [NativeStackOutlet],
    template: `
       <native-stack-outlet />
    `,
-   imports: [NativeStackOutlet],
    host: { style: 'flex: 1' },
 })
 
