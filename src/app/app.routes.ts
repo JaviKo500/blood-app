@@ -11,7 +11,13 @@ export const routes: Routes = [
          },
          {
             path: 'home',
-            loadComponent: () => import('./home/screens/home.screen').then( m => m.HomeScreen ),
+            loadComponent: () => import('./home/screens/home.stack').then( m => m.HomeStack ),
+            children: [
+               {
+                  path: '',
+                  loadComponent: () => import('./home/screens/home.screen').then( m => m.HomeScreen ),
+               }
+            ]
          },
          {
             path: 'settings',
