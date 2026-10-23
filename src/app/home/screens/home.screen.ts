@@ -17,7 +17,7 @@ import { BloodTypeList } from "../components/blood-type-list";
                class="size-11 items-center justify-center rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/10"
                (press)="search()"
             >
-               <ng-icon name="lucideSearch" class="text-black dark:text-neutral-50" size="24"/>
+               <ng-icon name="lucidePlus" class="text-black dark:text-neutral-50" size="24"/>
             </pressable>
          </app-bar>
          <blood-type-list class="flex-1"/>

@@ -3,7 +3,7 @@ import { withComponentInputBinding } from "@angular/router";
 import tailwind from '../../.angular-native/app.tailwind.js';
 import { SvgImages } from '@ng-native/icons';
 import { provideIcons } from '@ng-icons/core';
-import { lucideHome, lucideSettings, lucideMenu, lucideSearch, lucideCheck, } from '@ng-icons/lucide';
+import { lucideHome, lucideSettings, lucideMenu, lucideSearch, lucideCheck, lucidePlus, } from '@ng-icons/lucide';
 
 import { routes } from "./app.routes";
 
@@ -17,6 +17,7 @@ export const appConfig = {
          lucideSearch,
          lucideSettings,
          lucideCheck,
+         lucidePlus,
       }),
    ],
 };
