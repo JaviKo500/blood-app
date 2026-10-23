@@ -26,10 +26,12 @@ const GAP = 20;
                            [aria-checked]="selected() === type"
                            (press)="selected.set(type)"
                            class="relative h-19 flex-1 items-center justify-center rounded-md bg-control text-ink-muted transition-colors
-                              hover:bg-neutral-200 aria-checked:bg-brand aria-checked:text-white aria-checked:hover:bg-brand-pressed
+                              bg-white
+                              hover:bg-neutral-200 aria-checked:bg-red-500 aria-checked:text-white aria-checked:hover:bg-brand-pressed
                               focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2
                               dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700
                               dark:focus-visible:ring-offset-neutral-950 md:h-24
+                              dark:aria-checked:bg-red-600 dark:aria-checked:text-zinc-100
                            "
                         >
                            <text class="text-2xl">{{ type }}</text>

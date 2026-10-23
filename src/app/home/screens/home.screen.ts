@@ -8,7 +8,7 @@ import { BloodTypeList } from "../components/blood-type-list";
    selector: 'home-screen',
    imports: [AppBar, AppBarRight, View, Pressable, NgIcon, BloodTypeList],
    template:`
-      <view class="flex-1 px-4 bg-white dark:bg-neutral-950">
+      <view class="flex-1 px-4 bg-zinc-100 dark:bg-neutral-950">
          <app-bar title="Home">
             <pressable 
                appBarRight 
