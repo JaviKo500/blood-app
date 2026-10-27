@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { SafeAreaProvider, } from '@ng-native/components';
+import { StatusBar } from '@ng-native/device';
 import { nativePlatform } from '@ng-native/fabric';
 import { NativeStackOutlet } from '@ng-native/router';
 import { ThemePreference } from './shared/theme.shared';
@@ -25,5 +26,7 @@ export class App {
   constructor() {
     // Restores the saved theme at startup, before the settings tab is ever opened.
     inject(ThemePreference);
+    // Light content on a dark theme, dark on a light one, including a theme the app forced.
+    inject(StatusBar).set({ style: 'auto' });
   }
 }

@@ -204,10 +204,14 @@ Firme y escaneable: una fila es una persona.
 - **Nativo:** el `Picker` de `@expo/ui` con `pickerStyle="segmented"` (`UISegmentedControl` en iOS, botones segmentados de Material en Android), dentro de un `<ui-host>` en una tarjeta agrupada con padding de 12 pt. Nunca uno dibujado a mano.
 - **Contenido:** solo etiquetas de texto, sin iconos; colores, selección, tamaño y anuncio del lector de pantalla los pone el sistema.
 - **Valor:** un `UiPickerOption` por opción; seguir al sistema es `'system'` en el picker y `null` en `ThemePreference`.
+- **Android:** la fila de Material se dibuja con `ui-single-choice-segmented-button-row` a todo el ancho (`fillMaxWidth`) y segmentos de peso igual, porque la de `ui-picker` se queda corta.
+- **Paleta en Android:** el `ui-host` recibe `seedColor` = brand, y Material genera sus tonos a partir de él: el segmento seleccionado es un rosa pálido de la marca, no el carmesí lleno, así que la Regla del Rojo Único se mantiene. Sin semilla, Android usaría el color del fondo de pantalla (Material You) y el control no pertenecería a la app.
+- **Tema del control:** el `ui-host` recibe `colorScheme` con el esquema que muestra la app; sin él, Compose sigue al dispositivo y, con "Oscuro" forzado, pinta segmentos claros ilegibles sobre la tarjeta oscura.
 
 ### Cards / Containers
 - **Tarjeta agrupada:** papel, 12 pt, halo de tarjeta en claro; en oscuro, superficie neutral 900 con borde hairline neutral 800.
 - **Encabezado de grupo:** Section en tinta apagada, sangrado 16 pt.
+- **Pie de grupo:** texto de 14 pt en tinta apagada (oscuro: neutral 300), sangrado 16 pt, 8 pt bajo la tarjeta; explica qué hace el grupo o qué promete. No usa tinta suave: a 14 pt sobre gris de sala no llega a 4,5:1.
 
 ### Settings Row
 - **Forma:** mínimo 56 pt de alto, padding 8 × 16 pt, icono en baldosa de 32 pt y 6 pt de radio.

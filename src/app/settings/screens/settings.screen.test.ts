@@ -59,6 +59,13 @@ test('saves the theme the user picks', async () => {
   expect(picker(result.fabric.committed)?.props['selection']).toBe('light');
 });
 
+test('says where the data lives', async () => {
+  const { providers } = setup();
+  await render(SettingsScreen, { providers });
+
+  expect(screen.getByText(/se guardan en este teléfono/)).toBeTruthy();
+});
+
 test('asks before deleting everything', async () => {
   const { confirm, providers } = setup();
   await render(SettingsScreen, { providers });
