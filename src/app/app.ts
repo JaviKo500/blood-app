@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SafeAreaProvider, } from '@ng-native/components';
 import { nativePlatform } from '@ng-native/fabric';
 import { NativeStackOutlet } from '@ng-native/router';
+import { ThemePreference } from './shared/theme.shared';
 
 /**
  * Element names are lowercase, and that is load-bearing rather than style: an uppercase name is
@@ -20,4 +21,9 @@ import { NativeStackOutlet } from '@ng-native/router';
 export class App {
   protected readonly platformClass = `platform-${nativePlatform()}`;
   protected readonly fill = { flex: 1 };
+
+  constructor() {
+    // Restores the saved theme at startup, before the settings tab is ever opened.
+    inject(ThemePreference);
+  }
 }

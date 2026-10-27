@@ -223,7 +223,7 @@ Firme y escaneable: una fila es una persona.
 
 ### Settings Row
 - **Forma:** mínimo 56 pt de alto, padding 8 × 16 pt, icono en baldosa de 32 pt y 6 pt de radio.
-- **Destructiva:** baldosa con carmesí al 10 % e icono carmesí; texto en Body.
+- **Destructiva:** baldosa con carmesí al 10 % e icono carmesí; texto en Body y carmesí (oscuro: carmesí legible), como las filas destructivas de iOS. Siempre pide confirmación con el diálogo nativo (`Dialogs.confirm` con `destructive`) y lleva un `accessibilityHint` que dice que no se puede deshacer.
 
 ### Navigation
 - **Barra:** nativa, título grande; acciones a la derecha como botones de icono de 44 pt, circulares, con fondo negro al 5 % (oscuro: blanco al 10 %) al pulsar.

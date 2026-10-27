@@ -1,7 +1,8 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Text, View, Pressable, ScrollView, } from "@ng-native/components";
 import { AppBar } from "../../shared/appbar.shared";
-import { ColorScheme, Scheme } from "@ng-native/device";
+import { Dialogs, Scheme } from "@ng-native/device";
+import { ThemePreference } from "../../shared/theme.shared";
 import { NgIcon } from "@ng-native/icons";
 
 @Component({
@@ -52,12 +53,14 @@ import { NgIcon } from "@ng-native/icons";
                          dark:border-hairline dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-none">
                <!-- Fila destructiva -->
                <pressable accessibilityRole="button"
+                  accessibilityHint="Pide confirmación y borra para siempre todas las personas guardadas"
+                  (press)="confirmDeleteAll()"
                   class="min-h-14 flex-row items-center gap-3 px-4 py-2 transition-colors
                          hover:bg-neutral-50 dark:hover:bg-neutral-800">
                   <view class="size-8 items-center justify-center rounded-md bg-brand/10 dark:bg-brand-light/15">
                      <ng-icon name="lucideTrash2" [size]="18" class="text-brand dark:text-brand-light" />
                   </view>
-                  <text class="flex-1 text-base text-black dark:text-neutral-50">Borrar todos los datos</text>
+                  <text class="flex-1 text-base text-brand dark:text-brand-light">Borrar todos los datos</text>
                </pressable>
             </view>
          </view>
@@ -69,16 +72,28 @@ import { NgIcon } from "@ng-native/icons";
 })
 
 export class SettingsScreen{
-   private readonly colorScheme = inject(ColorScheme);
+   private readonly dialogs = inject(Dialogs);
    protected readonly themes = [
       { value: 'light', label: 'Claro', icon: 'lucideSun' },
       { value: 'dark', label: 'Oscuro', icon: 'lucideMoon' },
       { value: null, label: 'Sistema', icon: 'lucideSmartphone' },
    ] as const;
-   protected readonly theme = signal<Scheme | null>(null);
-    protected chooseTheme(scheme: Scheme | null): void {
+   // Saved on the device; ThemePreference applies it to the window, so CSS dark:, headers, tabs
+   // and switches all follow.
+   protected readonly theme = inject(ThemePreference).choice;
+
+   protected chooseTheme(scheme: Scheme | null): void {
       this.theme.set(scheme);
-      // Changes the window's appearance: CSS dark:, headers, tabs and switches all follow.
-      this.colorScheme.set(scheme);
+   }
+
+   protected async confirmDeleteAll(): Promise<void> {
+      const sure = await this.dialogs.confirm('¿Borrar todos los datos?', {
+         message: 'Se borrarán todas las personas guardadas en este teléfono. No se puede deshacer.',
+         confirm: 'Borrar todo',
+         cancel: 'Cancelar',
+         destructive: true,
+      });
+      if (!sure) return;
+      // TODO: clear the people store once persistence exists; the list is sample data for now.
    }
 }
