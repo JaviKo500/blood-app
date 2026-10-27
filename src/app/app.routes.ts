@@ -19,14 +19,14 @@ export const routes: Routes = [
                },
                {
                   path: 'user/new',
-                  loadComponent: () => import('./user/screens/user.screen').then( m => m.UserScreen ),
-               },
-               {
-                  path: 'user/:id',
-                  loadComponent: () => import('./user/screens/user.screen').then( m => m.UserScreen ),
+                  loadComponent: () => import('./user/screens/user.form.screen').then( m => m.UserFormScreen ),
                },
                {
                   path: 'user/:id/edit',
+                  loadComponent: () => import('./user/screens/user.form.screen').then( m => m.UserFormScreen ),
+               },
+                              {
+                  path: 'user/:id',
                   loadComponent: () => import('./user/screens/user.screen').then( m => m.UserScreen ),
                },
             ]
