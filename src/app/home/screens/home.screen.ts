@@ -1,9 +1,10 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { View, Pressable, } from "@ng-native/components";
 import { AppBar, AppBarRight } from "../../shared/appbar.shared";
 import { NgIcon } from "@ng-native/icons";
 import { UserList } from "../../user/components/user-list";
 import { UserModel } from "../../user/model/user.model";
+import { NativeNavigation } from "@ng-native/router";
 
 @Component({
    selector: 'home-screen',
@@ -16,7 +17,7 @@ import { UserModel } from "../../user/model/user.model";
                accessibilityRole="button" 
                accessibilityLabel="Search"
                class="size-11 items-center justify-center rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/10"
-               (press)="search()"
+               (press)="add()"
             >
                <ng-icon name="lucidePlus" class="text-black dark:text-neutral-50" size="24"/>
             </pressable>
@@ -27,6 +28,8 @@ import { UserModel } from "../../user/model/user.model";
 })
 
 export class HomeScreen{
+   private readonly navigation = inject(NativeNavigation);
+
    protected readonly users: UserModel[] = [
       { id: 1, typeBlood: 'A+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
       { id: 2, typeBlood: 'A-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
@@ -38,12 +41,11 @@ export class HomeScreen{
       { id: 8, typeBlood: 'O-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
    ];
 
-   protected search() {
-      console.log('<--------------- JK Home.screen --------------->');
-      console.log('search');
+   protected add() {
+      void this.navigation.push(['/home/user/new']);
    }
 
    protected openUser(user: UserModel) {
-      console.log('openUser', user.id);
+      void this.navigation.push(['/home/user', user.id.toString()]);
    }
 }

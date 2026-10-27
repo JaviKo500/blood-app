@@ -16,7 +16,19 @@ export const routes: Routes = [
                {
                   path: '',
                   loadComponent: () => import('./home/screens/home.screen').then( m => m.HomeScreen ),
-               }
+               },
+               {
+                  path: 'user/new',
+                  loadComponent: () => import('./user/screens/user.screen').then( m => m.UserScreen ),
+               },
+               {
+                  path: 'user/:id',
+                  loadComponent: () => import('./user/screens/user.screen').then( m => m.UserScreen ),
+               },
+               {
+                  path: 'user/:id/edit',
+                  loadComponent: () => import('./user/screens/user.screen').then( m => m.UserScreen ),
+               },
             ]
          },
          {
@@ -30,5 +42,5 @@ export const routes: Routes = [
             ]
          }
       ],
-   }
+   },
 ];

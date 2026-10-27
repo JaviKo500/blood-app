@@ -16,7 +16,7 @@ export class AppBarRight {}
    selector: 'app-bar',
    imports: [NativeHeader, NativeHeaderItem,],
    template: `
-      <native-header [title]="title()" [largeTitle]="largeTitle()">
+      <native-header [title]="title()" [largeTitle]="largeTitle()" [tabBarHidden]="tabBarHidden()">
          @if (right()) {
             <native-header-item type="right">
                <ng-content select="[appBarRight]" />
@@ -29,6 +29,8 @@ export class AppBarRight {}
 export class AppBar {
    readonly title = input.required<string>();
    readonly largeTitle = input(true);
+   /** Hide the tab bar while this page is in front of its tab, as on a pushed detail page. */
+   readonly tabBarHidden = input(false);
 
    protected readonly android = nativePlatform() === 'android';
    protected readonly left = contentChild(AppBarLeft);
