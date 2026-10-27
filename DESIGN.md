@@ -119,12 +119,12 @@ components:
 
 Blood App se diseña como la tarjeta de emergencia que se lleva en la cartera: un dato impreso grande, en el que se confía a primera vista. Cada pantalla responde a una persona con prisa (en urgencias, frente a un formulario, con una mano) que necesita leer un tipo de sangre y una cédula en segundos. Todo lo demás calla para que ese dato hable.
 
-La densidad es baja y ordenada: filas blancas sobre un fondo gris muy claro, una columna con margen lateral de 24 pt y el cromo nativo de cada sistema (barra de título grande, pestañas, pila de navegación). La marca no es un decorado; es un solo carmesí (#d70032) que aparece solo donde algo importa: la selección, la acción destructiva y el foco. El tipo de sangre lleva su propio tono rojo suave en una pastilla, y es el único dato de la fila que tiene color.
+La densidad es baja y ordenada: filas blancas sobre un fondo gris muy claro, una columna con margen lateral de 24 pt y el cromo nativo de cada sistema (barra de título grande, pestañas, pila de navegación). La marca no es un decorado; es un solo carmesí (#d70032) que aparece solo donde algo importa: la selección, la acción destructiva y el foco. El tipo de sangre lleva su propio tono rojo suave en un bloque al inicio de la fila, y es el único dato de la fila que tiene color.
 
 La tipografía es la del sistema (San Francisco en iOS, Roboto en Android) porque la app sigue las convenciones de cada plataforma. El documento de referencia `docs/design-system-tailwind.md` proponía Poppins; no está instalada y queda como decisión abierta, no como parte del sistema.
 
 **Key Characteristics:**
-- Un dato protagonista por fila: el tipo de sangre, en una pastilla roja suave.
+- Un dato protagonista por fila: el tipo de sangre, grande, en un bloque rojo suave al inicio.
 - Un solo carmesí de marca, escaso, para selección, foco y acciones destructivas.
 - Cromo nativo de iOS y Android; nada de barras ni pestañas dibujadas a mano.
 - Profundidad tonal casi plana: sombra mínima en claro, borde de un píxel en oscuro.
@@ -150,7 +150,6 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 - **Tinta** (ink / ink-dark): títulos y texto principal.
 - **Tinta apagada** (ink-muted / ink-muted-dark): encabezados de sección, etiquetas de controles.
 - **Tinta suave** (ink-subtle): cédula y metadatos de la fila, el chevron.
-- **Gris de avatar** (avatar; oscuro neutral 700): círculo de iniciales.
 
 ### Named Rules
 **The One Red Rule.** El carmesí de marca solo marca selección, foco o peligro. Si un elemento es rojo y no es ninguna de las tres cosas, sobra.
@@ -170,7 +169,7 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 - **Label** (500, 14 pt): etiquetas de segmentos y botones.
 - **Meta** (300, 14 pt): cédula y datos secundarios de la fila.
 - **Section** (500, 12 pt, mayúsculas, tracking 0,025 em): encabezados de grupo en ajustes, al estilo de las listas agrupadas de iOS.
-- **Chip** (500, 12 pt): el tipo de sangre en su pastilla; las iniciales del avatar van en 600.
+- **Tipo de sangre** (600, 20 pt): el grupo y su signo en el bloque de sangre, al mismo tamaño.
 
 ### Named Rules
 **The Dynamic Type Rule.** Ningún tamaño fijo impide que el texto escale con la configuración del sistema; una fila crece en alto antes que recortar el tipo de sangre.
@@ -179,7 +178,7 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 
 Una sola columna con margen lateral de 24 pt en todas las pantallas. Los títulos, pestañas y navegación son nativos (`<app-bar>`, `native-tabs-outlet`, `native-stack-outlet`); las pantallas empujadas ocultan la barra de pestañas.
 
-Ritmo en escala de 4 pt: 12 pt entre filas de la lista, 16 pt dentro de la fila y entre avatar y texto, 8 pt entre encabezado de sección y su tarjeta, 32 pt entre secciones. El contenido respeta las zonas seguras con mínimos (`min-pt-safe-12`, `min-pb-safe-32` en la lista).
+Ritmo en escala de 4 pt: 12 pt entre filas de la lista, 16 pt dentro de la fila y entre el bloque de sangre y el texto, 4 pt entre nombre y cédula, 8 pt entre encabezado de sección y su tarjeta, 32 pt entre secciones. Una pantalla con título grande tiene su `<scroll-view>` como primer elemento, sin nada alrededor, con `contentInsetAdjustmentBehavior="automatic"`: así el contenido empieza bajo la barra y el título se pliega al desplazar. El margen de 24 pt va en `contentContainerClass`.
 
 Las listas cortas usan `<scroll-view>`; si el registro crece, la lista pasa a `<virtual-list>`. En iPad la columna se mantiene; no hay todavía un diseño de dos paneles.
 
@@ -195,21 +194,21 @@ Profundidad tonal, casi plana. En claro, las superficies blancas se separan del 
 
 ## Shapes
 
-Esquinas suaves y pocas formas: 12 pt en filas y tarjetas, 6 pt en controles segmentados e iconos de fila, círculo completo en avatares, pastillas de sangre y botones de icono. Los divisores son de un píxel físico (`hairline`), sangrados para alinearse con el texto de la fila.
+Esquinas suaves y pocas formas: 12 pt en filas y tarjetas, 6 pt en controles segmentados e iconos de fila, 12 pt en el bloque de sangre, círculo completo en botones de icono. Los divisores son de un píxel físico (`hairline`), sangrados para alinearse con el texto de la fila.
 
 ## Components
 
 ### User Row (componente característico)
 Firme y escaneable: una fila es una persona.
 - **Forma:** tarjeta blanca de esquinas suaves (12 pt), padding 16 pt.
-- **Contenido:** avatar de iniciales (48 pt, círculo gris), nombre en Title, debajo la pastilla de sangre y la cédula en Meta separadas por un punto medio, chevron a la derecha.
+- **Contenido:** bloque de tipo de sangre a la izquierda (mínimo 64 × 56 pt, 12 pt de radio, colores de la pastilla de sangre, grupo y signo en 20 pt semibold, negativo con el signo menos `−` y no un guion), nombre en Title, debajo la cédula en Meta con cifras tabulares, chevron a la derecha. El tipo de sangre es lo primero que se lee: no hay avatar de iniciales.
 - **Oscuro:** superficie neutral 900 con borde hairline neutral 800, como las tarjetas agrupadas.
 - **Pulsado:** el fondo baja a neutral 100 (oscuro: neutral 800).
 - **Accesibilidad:** rol botón; la etiqueta dice nombre, apellidos y tipo de sangre.
 - **Vacío:** texto centrado "No hay usuarios todavía" en Tinta suave.
 
 ### Chips
-- **Pastilla de sangre:** píldora (radio completo), 2 × 8 pt, fondo rojo suave con texto rojo oscuro; en oscuro, rojo 900 al 40 % con texto rojo 300. Solo para el tipo de sangre.
+- **Bloque de sangre:** el tipo de sangre en la fila de persona; fondo rojo suave con texto rojo oscuro, en oscuro rojo 900 al 40 % con texto rojo 300. Solo para el tipo de sangre.
 
 ### Segmented Control
 - **Forma:** segmentos de 48 pt de alto y 6 pt de radio, dentro de una tarjeta agrupada; icono de 18 pt más etiqueta.
@@ -242,5 +241,5 @@ Firme y escaneable: una fila es una persona.
 - **Don't** usar `red-500` o `red-600` para la selección; es `brand` con `brand-pressed` al pulsar.
 - **Don't** poner `--font-sans: Poppins` sin registrar antes la fuente: en nativo cae en silencio a la del sistema.
 - **Don't** usar sombras en modo oscuro.
-- **Don't** usar el carmesí de marca para decorar; ni para el tipo de sangre, que tiene su pastilla propia.
+- **Don't** usar el carmesí de marca para decorar; ni para el tipo de sangre, que tiene su bloque propio.
 - **Don't** comunicar el tipo de sangre o la selección solo con color.

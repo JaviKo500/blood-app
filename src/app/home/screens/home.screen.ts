@@ -1,5 +1,5 @@
 import { Component, inject } from "@angular/core";
-import { View, Pressable, } from "@ng-native/components";
+import { Pressable, ScrollView } from "@ng-native/components";
 import { AppBar, AppBarRight } from "../../shared/appbar.shared";
 import { NgIcon } from "@ng-native/icons";
 import { UserList } from "../../user/components/user-list";
@@ -8,23 +8,28 @@ import { NativeNavigation } from "@ng-native/router";
 
 @Component({
    selector: 'home-screen',
-   imports: [AppBar, AppBarRight, View, Pressable, NgIcon, UserList],
+   imports: [AppBar, AppBarRight, ScrollView, Pressable, NgIcon, UserList],
    template:`
-      <view class="flex-1 px-6 bg-neutral-100 dark:bg-neutral-950">
-         <app-bar title="Home">
-            <pressable 
-               appBarRight 
-               accessibilityRole="button" 
-               accessibilityLabel="Añadir persona"
-               class="size-11 android:size-12 items-center justify-center rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/10"
-               (press)="add()"
-            >
-               <ng-icon name="lucidePlus" class="text-black dark:text-neutral-50" size="24"/>
-            </pressable>
-         </app-bar>
-         <user-list class="flex-1" [users]="users" (userSelected)="openUser($event)"/>
-      </view>
+      <scroll-view
+         contentInsetAdjustmentBehavior="automatic"
+         class="flex-1 bg-neutral-100 dark:bg-neutral-950"
+         contentContainerClass="grow px-6 pt-3 pb-8"
+      >
+         <user-list [users]="users" (userSelected)="openUser($event)"/>
+      </scroll-view>
+      <app-bar title="Home">
+         <pressable
+            appBarRight
+            accessibilityRole="button"
+            accessibilityLabel="Añadir persona"
+            class="size-11 android:size-12 items-center justify-center rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+            (press)="add()"
+         >
+            <ng-icon name="lucidePlus" class="text-black dark:text-neutral-50" size="24"/>
+         </pressable>
+      </app-bar>
    `,
+   host: { style: 'flex: 1' },
 })
 
 export class HomeScreen{

@@ -1,6 +1,6 @@
 import { render, screen, userEvent } from '@ng-native/testing';
 import { expect, test, vi } from 'vitest';
-import { UserList, initials } from './user-list.ts';
+import { UserList, bloodTypeGlyph } from './user-list.ts';
 import type { UserModel } from '../model/user.model.ts';
 
 const users: UserModel[] = [
@@ -8,14 +8,13 @@ const users: UserModel[] = [
   { id: 2, typeBlood: 'O-', name: 'Pablo Mesias', lastName: 'Gutierrez Urgiles', dni: '0105566038' },
 ];
 
-test('draws a row per user with their initials, blood type and dni', async () => {
+test('draws a row per user with their blood type, name and dni', async () => {
   await render(UserList, { inputs: { users } });
 
   expect(screen.getAllByRole('button')).toHaveLength(2);
   expect(screen.getByRole('button', { name: 'Javiko Gutierrez A+' })).toBeTruthy();
-  expect(screen.getByText('JG')).toBeTruthy();
-  expect(screen.getByText('PG')).toBeTruthy();
-  expect(screen.getByText('O-')).toBeTruthy();
+  expect(screen.getByText('A+')).toBeTruthy();
+  expect(screen.getByText('O\u2212')).toBeTruthy();
   expect(screen.getByText('0105566038')).toBeTruthy();
 });
 
@@ -44,8 +43,7 @@ test('shows the empty state when there are no users', async () => {
   expect(screen.getByText('No hay usuarios todavía')).toBeTruthy();
 });
 
-test('initials takes the first letter of each word, upper-cased', () => {
-  expect(initials(['javiko', 'gutierrez'])).toBe('JG');
-  expect(initials(['', 'Gutierrez'])).toBe('G');
-  expect(initials([])).toBe('');
+test('bloodTypeGlyph draws a negative type with a minus sign', () => {
+  expect(bloodTypeGlyph('AB-')).toBe('AB\u2212');
+  expect(bloodTypeGlyph('O+')).toBe('O+');
 });
