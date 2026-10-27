@@ -14,6 +14,7 @@ import {
    lucideMoon, 
    lucideSmartphone, 
    lucideTrash2,
+   lucideChevronRight,
 } from '@ng-icons/lucide';
 
 import { routes } from "./app.routes";
@@ -33,6 +34,7 @@ export const appConfig = {
          lucideMoon,
          lucideSmartphone,
          lucideTrash2,
+         lucideChevronRight,
       }),
    ],
 };
