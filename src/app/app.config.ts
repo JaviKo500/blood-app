@@ -16,6 +16,9 @@ import {
    lucideMail,
    lucidePencil,
    lucidePhone,
+   lucideUser,
+   lucideIdCard,
+   lucideCircleAlert,
 } from '@ng-icons/lucide';
 
 import { routes } from "./app.routes";
@@ -37,6 +40,9 @@ export const appConfig = {
          lucideMail,
          lucidePencil,
          lucidePhone,
+         lucideUser,
+         lucideIdCard,
+         lucideCircleAlert,
       }),
    ],
 };

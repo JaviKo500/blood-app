@@ -141,7 +141,7 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 - **Tinta suave** (ink-subtle): cédula y metadatos de la fila, el chevron.
 
 ### Named Rules
-**The One Red Rule.** El carmesí de marca solo marca dónde estás (la pestaña actual), el foco o el peligro. Si un elemento es rojo y no es ninguna de las tres cosas, sobra. Una preferencia, como el tema, nunca se pinta de carmesí lleno.
+**The One Red Rule.** El carmesí de marca solo marca dónde estás (la pestaña actual), el foco o el peligro. Si un elemento es rojo y no es ninguna de las tres cosas, sobra. Dos usos derivados caben en la regla: el error de un campo (es peligro: un dato mal escrito) y el botón que guarda un formulario, la única acción principal llena de carmesí en la app. Una preferencia, como el tema, nunca se pinta de carmesí lleno.
 
 **The Blood Speaks Rule.** El tipo de sangre es el único dato de una fila con color propio, y nunca se comunica solo por color: el texto (A+, O-) siempre está escrito y anunciado.
 
@@ -212,6 +212,13 @@ Firme y escaneable: una fila es una persona.
 - **Tarjeta agrupada:** papel, 12 pt, halo de tarjeta en claro; en oscuro, superficie neutral 900 con borde hairline neutral 800.
 - **Encabezado de grupo:** Section en tinta apagada, sangrado 16 pt.
 - **Pie de grupo:** texto de 14 pt en tinta apagada (oscuro: neutral 300), sangrado 16 pt, 8 pt bajo la tarjeta; explica qué hace el grupo o qué promete. No usa tinta suave: a 14 pt sobre gris de sala no llega a 4,5:1.
+
+### Form Field
+- **Campo:** relleno en gris de control (oscuro: neutral 800), 12 pt de radio, mínimo 52 pt de alto, padding 16 pt, icono Lucide de 18 pt en tinta apagada a la izquierda (`user/components/user-field.ts`). La etiqueta va como placeholder y como `accessibilityLabel`; placeholder `#6b6b6b` (oscuro: neutral 400).
+- **Foco y error:** borde de 2 pt en carmesí (oscuro: carmesí legible), transparente en reposo para que nada salte. El error aparece al salir del campo o al intentar guardar, nunca mientras se escribe: icono de alerta y texto de 14 pt en carmesí bajo el campo, con rol `alert`.
+- **Grupos:** encabezado de grupo y tarjeta agrupada, como en Ajustes: Identidad, Tipo de sangre, Contacto (opcional).
+- **Tipo de sangre:** rejilla de 2 × 4 (2 columnas desde `fontScale` ≥ 1,6), celdas de 56 pt en gris de control; la elegida toma los colores del bloque de sangre, un borde de 2 pt en su rojo oscuro y un check. Rol `radiogroup`/`radio` con `checked`, anunciada en palabras. Nada viene preseleccionado.
+- **Guardar:** botón ancho, mínimo 52 pt, esquinas completas, fondo carmesí y texto blanco en 16 pt medium; pulsado, carmesí pulsado. Siempre activo: si falta algo, al pulsarlo se marcan los errores en lugar de guardar.
 
 ### Settings Row
 - **Forma:** mínimo 56 pt de alto, padding 8 × 16 pt, icono en baldosa de 32 pt y 6 pt de radio.
