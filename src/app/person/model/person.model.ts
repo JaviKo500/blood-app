@@ -1,9 +1,16 @@
 export interface PersonModel {
-   id: number;
-   typeBlood: string;
+   id: string;
+   bloodTypeCode: string;
    name: string;
    lastName: string;
    dni: string;
    email?: string;
    phone?: string;
+   createdAt?: string;
+   updatedAt?: string;
+}
+
+export interface BloodType {
+   code: string;
+   createdAt?: string;
 }
