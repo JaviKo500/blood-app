@@ -6,10 +6,13 @@ import { AppRegistry, Image, Platform, processColor } from 'react-native';
 import { mount } from '@ng-native/platform';
 import { currentConditions, deviceTokens, watchConditions } from '@ng-native/device';
 import { getFabricUIManager, registerPlatformComponents } from '@ng-native/fabric';
+import { registerExpoUiViews } from '@ng-native/expo';
 import { App } from './app/app.ts';
 import { appConfig } from './app/app.config.ts';
 
 registerPlatformComponents(Platform.OS);
+// SwiftUI and Compose controls from @expo/ui, such as the theme picker in settings.
+registerExpoUiViews(Platform.OS);
 
 AppRegistry.registerRunnable('main', ({ rootTag }) => {
   const app = mount(Number(rootTag), App, getFabricUIManager(), {

@@ -1,13 +1,14 @@
-import { Component, inject } from "@angular/core";
+import { Component, computed, inject } from "@angular/core";
 import { Text, View, Pressable, ScrollView, } from "@ng-native/components";
 import { AppBar } from "../../shared/appbar.shared";
-import { Dialogs, Scheme } from "@ng-native/device";
+import { Dialogs } from "@ng-native/device";
+import { UiHost, UiPicker, type UiPickerOption } from "@ng-native/expo/expo-ui-components";
 import { ThemePreference } from "../../shared/theme.shared";
 import { NgIcon } from "@ng-native/icons";
 
 @Component({
    selector: 'settings-screen',
-   imports: [AppBar, View, ScrollView, Text, Pressable, NgIcon,],
+   imports: [AppBar, View, ScrollView, Text, Pressable, NgIcon, UiHost, UiPicker,],
    template:`
       <scroll-view
          contentInsetAdjustmentBehavior="automatic"
@@ -19,29 +20,19 @@ import { NgIcon } from "@ng-native/icons";
                class="px-4 text-xs font-medium uppercase tracking-wide text-ink-muted dark:text-neutral-300">
                Apariencia
             </text>
-            <view class="rounded-xl bg-white p-2 shadow-lg shadow-slate-900/5
+            <view class="rounded-xl bg-white p-3 shadow-lg shadow-slate-900/5
                          dark:border-hairline dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-none">
-               <view class="flex-row gap-2" accessibilityRole="radiogroup" accessibilityLabel="Tema">
-                  @for (option of themes; track option.label) {
-                     <pressable
-                        accessibilityRole="radio"
-                        [accessibilityLabel]="option.label"
-                        [aria-checked]="theme() === option.value"
-                        (press)="chooseTheme(option.value)"
-                        class="h-12 flex-1 flex-row items-center justify-center gap-2 rounded-md bg-control text-ink-muted transition-colors
-                           hover:bg-neutral-200 aria-checked:bg-brand aria-checked:text-white aria-checked:hover:bg-brand-pressed
-                           focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2
-                           dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700
-                           dark:focus-visible:ring-offset-neutral-900
-                        "
-                     >
-                        <ng-icon [name]="option.icon" [size]="18" [class]="theme() === option.value
-                           ? 'text-white'
-                           : 'text-ink-muted dark:text-neutral-300'"/>
-                        <text class="text-sm font-medium">{{ option.label }}</text>
-                     </pressable>
-                  }
-               </view>
+               <!-- The platform's own segmented control: UISegmentedControl on iOS, Material's
+                    segmented buttons on Android. It announces itself and its selection. -->
+               <ui-host [matchContents]="{ vertical: true }">
+                  <ui-picker
+                     label="Tema"
+                     pickerStyle="segmented"
+                     [options]="themes"
+                     [value]="picked()"
+                     (valueChange)="chooseTheme($event)"
+                  />
+               </ui-host>
             </view>
          </view>
           <view class="gap-2">
@@ -73,17 +64,19 @@ import { NgIcon } from "@ng-native/icons";
 
 export class SettingsScreen{
    private readonly dialogs = inject(Dialogs);
-   protected readonly themes = [
-      { value: 'light', label: 'Claro', icon: 'lucideSun' },
-      { value: 'dark', label: 'Oscuro', icon: 'lucideMoon' },
-      { value: null, label: 'Sistema', icon: 'lucideSmartphone' },
-   ] as const;
+   protected readonly themes: readonly UiPickerOption[] = [
+      { value: 'light', label: 'Claro' },
+      { value: 'dark', label: 'Oscuro' },
+      { value: 'system', label: 'Sistema' },
+   ];
    // Saved on the device; ThemePreference applies it to the window, so CSS dark:, headers, tabs
    // and switches all follow.
-   protected readonly theme = inject(ThemePreference).choice;
+   private readonly theme = inject(ThemePreference).choice;
+   // A picker value is a string or a number, so following the system is 'system' here, null there.
+   protected readonly picked = computed(() => this.theme() ?? 'system');
 
-   protected chooseTheme(scheme: Scheme | null): void {
-      this.theme.set(scheme);
+   protected chooseTheme(value: string | number | null): void {
+      this.theme.set(value === 'light' || value === 'dark' ? value : null);
    }
 
    protected async confirmDeleteAll(): Promise<void> {

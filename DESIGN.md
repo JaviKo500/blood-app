@@ -84,17 +84,6 @@ components:
     typography: "{typography.chip}"
     rounded: "{rounded.full}"
     padding: "2px 8px"
-  segment:
-    backgroundColor: "{colors.control}"
-    textColor: "{colors.ink-muted}"
-    typography: "{typography.label}"
-    rounded: "{rounded.md}"
-    height: "48px"
-  segment-selected:
-    backgroundColor: "{colors.brand}"
-    textColor: "{colors.surface}"
-  segment-selected-pressed:
-    backgroundColor: "{colors.brand-pressed}"
   grouped-card:
     backgroundColor: "{colors.surface}"
     rounded: "{rounded.xl}"
@@ -119,13 +108,13 @@ components:
 
 Blood App se diseña como la tarjeta de emergencia que se lleva en la cartera: un dato impreso grande, en el que se confía a primera vista. Cada pantalla responde a una persona con prisa (en urgencias, frente a un formulario, con una mano) que necesita leer un tipo de sangre y una cédula en segundos. Todo lo demás calla para que ese dato hable.
 
-La densidad es baja y ordenada: filas blancas sobre un fondo gris muy claro, una columna con margen lateral de 24 pt y el cromo nativo de cada sistema (barra de título grande, pestañas, pila de navegación). La marca no es un decorado; es un solo carmesí (#d70032) que aparece solo donde algo importa: la selección, la acción destructiva y el foco. El tipo de sangre lleva su propio tono rojo suave en un bloque al inicio de la fila, y es el único dato de la fila que tiene color.
+La densidad es baja y ordenada: filas blancas sobre un fondo gris muy claro, una columna con margen lateral de 24 pt y el cromo nativo de cada sistema (barra de título grande, pestañas, pila de navegación). La marca no es un decorado; es un solo carmesí (#d70032) que aparece solo donde algo importa: la acción destructiva y el foco. La selección la dibujan los controles nativos de cada sistema. El tipo de sangre lleva su propio tono rojo suave en un bloque al inicio de la fila, y es el único dato de la fila que tiene color.
 
 La tipografía es la del sistema (San Francisco en iOS, Roboto en Android) porque la app sigue las convenciones de cada plataforma. El documento de referencia `docs/design-system-tailwind.md` proponía Poppins; no está instalada y queda como decisión abierta, no como parte del sistema.
 
 **Key Characteristics:**
 - Un dato protagonista por fila: el tipo de sangre, grande, en un bloque rojo suave al inicio.
-- Un solo carmesí de marca, escaso, para selección, foco y acciones destructivas.
+- Un solo carmesí de marca, escaso, para foco y acciones destructivas.
 - Cromo nativo de iOS y Android; nada de barras ni pestañas dibujadas a mano.
 - Profundidad tonal casi plana: sombra mínima en claro, borde de un píxel en oscuro.
 - Claro y oscuro completos, siguiendo al sistema por defecto.
@@ -135,8 +124,8 @@ La tipografía es la del sistema (San Francisco en iOS, Roboto en Android) porqu
 Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla de sangre es la única otra nota de color.
 
 ### Primary
-- **Carmesí de cartera** (brand): fondo de la opción seleccionada, anillo de foco, icono y tinte de la acción destructiva (al 10 % como fondo de su icono). Contraste con blanco 5,3:1.
-- **Carmesí pulsado** (brand-pressed): la opción seleccionada mientras se pulsa.
+- **Carmesí de cartera** (brand): anillo de foco, texto, icono y tinte de la acción destructiva (al 10 % como fondo de su icono). Contraste con blanco 5,3:1.
+- **Carmesí pulsado** (brand-pressed): un control de marca mientras se pulsa.
 - **Carmesí nocturno** (brand-deep): fondos de marca a pantalla completa en oscuro, para no deslumbrar de noche.
 - **Carmesí legible** (brand-light): texto o icono rojo sobre fondos oscuros, donde el carmesí de marca solo da 3,7:1.
 
@@ -146,13 +135,13 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 ### Neutral
 - **Gris de sala** (screen / screen-dark): fondo de toda pantalla.
 - **Papel** (surface / surface-dark): filas, tarjetas agrupadas.
-- **Gris de control** (control / control-dark): segmentos sin seleccionar; pulsado pasa a neutral 200 en claro y control-pressed-dark en oscuro.
+- **Gris de control** (control / control-dark): controles propios en reposo; pulsado pasa a neutral 200 en claro y control-pressed-dark en oscuro.
 - **Tinta** (ink / ink-dark): títulos y texto principal.
 - **Tinta apagada** (ink-muted / ink-muted-dark): encabezados de sección, etiquetas de controles.
 - **Tinta suave** (ink-subtle): cédula y metadatos de la fila, el chevron.
 
 ### Named Rules
-**The One Red Rule.** El carmesí de marca solo marca selección, foco o peligro. Si un elemento es rojo y no es ninguna de las tres cosas, sobra.
+**The One Red Rule.** El carmesí de marca solo marca foco o peligro. Si un elemento es rojo y no es ninguna de las dos cosas, sobra. Una preferencia, como el tema, nunca se pinta de carmesí.
 
 **The Blood Speaks Rule.** El tipo de sangre es el único dato de una fila con color propio, y nunca se comunica solo por color: el texto (A+, O-) siempre está escrito y anunciado.
 
@@ -166,7 +155,7 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 - **Título de pantalla:** lo dibuja la barra nativa con título grande (`largeTitle`). No se reproduce en la plantilla.
 - **Title** (500, 16 pt, 1,5): nombre y apellidos en la fila, una línea con elipsis.
 - **Body** (400, 16 pt, 1,5): texto de filas de ajustes.
-- **Label** (500, 14 pt): etiquetas de segmentos y botones.
+- **Label** (500, 14 pt): etiquetas de botones.
 - **Meta** (300, 14 pt): cédula y datos secundarios de la fila.
 - **Section** (500, 12 pt, mayúsculas, tracking 0,025 em): encabezados de grupo en ajustes, al estilo de las listas agrupadas de iOS.
 - **Tipo de sangre** (600, 20 pt): el grupo y su signo en el bloque de sangre, al mismo tamaño.
@@ -194,7 +183,7 @@ Profundidad tonal, casi plana. En claro, las superficies blancas se separan del 
 
 ## Shapes
 
-Esquinas suaves y pocas formas: 12 pt en filas y tarjetas, 6 pt en controles segmentados e iconos de fila, 12 pt en el bloque de sangre, círculo completo en botones de icono. Los divisores son de un píxel físico (`hairline`), sangrados para alinearse con el texto de la fila.
+Esquinas suaves y pocas formas: 12 pt en filas y tarjetas, 6 pt en iconos de fila, 12 pt en el bloque de sangre, círculo completo en botones de icono. Los divisores son de un píxel físico (`hairline`), sangrados para alinearse con el texto de la fila.
 
 ## Components
 
@@ -212,10 +201,9 @@ Firme y escaneable: una fila es una persona.
 - **Bloque de sangre:** el tipo de sangre en la fila de persona; fondo rojo suave con texto rojo oscuro, en oscuro rojo 900 al 40 % con texto rojo 300. Solo para el tipo de sangre.
 
 ### Segmented Control
-- **Forma:** segmentos de 48 pt de alto y 6 pt de radio, dentro de una tarjeta agrupada; icono de 18 pt más etiqueta.
-- **Sin seleccionar:** gris de control con tinta apagada.
-- **Seleccionado:** carmesí de marca con texto blanco; pulsado, carmesí pulsado. Lo marca `aria-checked`, no solo el color.
-- **Foco:** anillo carmesí de 2 pt con separación.
+- **Nativo:** el `Picker` de `@expo/ui` con `pickerStyle="segmented"` (`UISegmentedControl` en iOS, botones segmentados de Material en Android), dentro de un `<ui-host>` en una tarjeta agrupada con padding de 12 pt. Nunca uno dibujado a mano.
+- **Contenido:** solo etiquetas de texto, sin iconos; colores, selección, tamaño y anuncio del lector de pantalla los pone el sistema.
+- **Valor:** un `UiPickerOption` por opción; seguir al sistema es `'system'` en el picker y `null` en `ThemePreference`.
 
 ### Cards / Containers
 - **Tarjeta agrupada:** papel, 12 pt, halo de tarjeta en claro; en oscuro, superficie neutral 900 con borde hairline neutral 800.
@@ -239,7 +227,7 @@ Firme y escaneable: una fila es una persona.
 - **Do** usar iconos Lucide con un trazo coherente, a 18–24 pt.
 
 ### Don't:
-- **Don't** usar `red-500` o `red-600` para la selección; es `brand` con `brand-pressed` al pulsar.
+- **Don't** usar `red-500` o `red-600` en lugar de `brand`, ni pintar una selección de carmesí: la selección es del control nativo.
 - **Don't** poner `--font-sans: Poppins` sin registrar antes la fuente: en nativo cae en silencio a la del sistema.
 - **Don't** usar sombras en modo oscuro.
 - **Don't** usar el carmesí de marca para decorar; ni para el tipo de sangre, que tiene su bloque propio.
