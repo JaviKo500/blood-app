@@ -12,6 +12,10 @@ import {
    lucidePlus, 
    lucideTrash2,
    lucideChevronRight,
+   lucideCopy,
+   lucideMail,
+   lucidePencil,
+   lucidePhone,
 } from '@ng-icons/lucide';
 
 import { routes } from "./app.routes";
@@ -29,6 +33,10 @@ export const appConfig = {
          lucidePlus,
          lucideTrash2,
          lucideChevronRight,
+         lucideCopy,
+         lucideMail,
+         lucidePencil,
+         lucidePhone,
       }),
    ],
 };

@@ -16,5 +16,5 @@ test('pushes the user screen when a person is pressed', async () => {
 
   await user.press(await screen.findByRole('button', { name: /^Pablo Mesias Gutierrez Urgiles, tipo de sangre B positivo/ }));
 
-  expect(await screen.findByText('3')).toBeTruthy();
+  expect(await screen.findByRole('button', { name: 'Editar persona' })).toBeTruthy();
 });
