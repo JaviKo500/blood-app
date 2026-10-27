@@ -9,69 +9,52 @@ const GAP = 20;
 @Component({
    selector: 'blood-type-list',
    template: `
-      <scroll-view class="flex-1" contentContainerClass="grow px-6 min-pt-safe-12 min-pb-safe-8">
-         <view
-            class="mt-5 gap-5"
-            accessibilityRole="radiogroup"
-            accessibilityLabel="Blood group"
-            (layout)="width.set($event.nativeEvent.layout.width)"
-         >
-            @for (row of rows(); track $index) {
-               <view class="flex-row gap-5">
-                  @for (type of row; track $index) {
-                     @if (type) {
-                        <pressable
-                           accessibilityRole="radio"
-                           [accessibilityLabel]="type"
-                           [aria-checked]="selected() === type"
-                           (press)="selected.set(type)"
-                           class="relative h-19 flex-1 items-center justify-center rounded-md bg-control text-ink-muted transition-colors
-                              bg-white
-                              hover:bg-neutral-200 aria-checked:bg-red-500 aria-checked:text-white aria-checked:hover:bg-brand-pressed
-                              focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2
-                              dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700
-                              dark:focus-visible:ring-offset-neutral-950 md:h-24
-                              dark:aria-checked:bg-red-600 dark:aria-checked:text-zinc-100
-                           "
-                        >
-                           <text class="text-2xl">{{ type }}</text>
-                           @if (selected() === type) {
-                              <ng-icon name="lucideCheck" [size]="16" strokeWidth="3" class="absolute right-2 top-2" />
-                           }
-                        </pressable>
-                     } @else {
-                        <!-- Keeps the cards of a short last row as wide as the rest -->
-                        <view class="flex-1" />
-                     }
-                  }
-               </view>
+      <scroll-view class="flex-1" contentContainerClass="grow px-6 min-pt-safe-12 min-pb-safe-32">
+         <view class="gap-5">
+            @for (person of persons; track person.id) {
+               <pressable
+                  accessibilityRole="radio"
+                  [accessibilityLabel]=""
+                  class="relative p-4 gap-2 flex-1 justify-center rounded-md transition-colors
+                     bg-white hover:bg-neutral-200 aria-checked:text-white aria-checked:hover:bg-brand-pressed
+                     focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2
+                     dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700
+                     dark:focus-visible:ring-offset-neutral-950 md:h-24
+                     dark:aria-checked:text-zinc-100
+                  "
+               >
+                  <view class="flex-row gap-4 items-center">
+                     <view class="rounded-full bg-zinc-200 dark:bg-zinc-500 p-2">
+                        <text>{{getFirstLetter(person.name, person.last_name)}}</text>
+                     </view>
+                     <view class="gap-2 flex-1">
+                        <text class="text-xl" [numberOfLines]="1" ellipsizeMode="tail">{{ person.name }} {{person.last_name}}</text>
+                        <view class="flex-row gap-2">
+                           <text class="text-sm font-light text-zinc-500 dark:text-zinc-400">{{ person.type }}</text>
+                           <text class="text-sm font-light text-zinc-500 dark:text-zinc-400">{{ person.dni }}</text>
+                        </view>
+                     </view>
+                  </view>
+               </pressable>
             }
          </view>
       </scroll-view>
    `,
-   imports: [ScrollView, View, Pressable, Text, NgIcon],
+   imports: [ScrollView, View, Pressable, Text,],
 })
 export class BloodTypeList {
-   protected readonly bloodTypes = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-   readonly selected = signal<string | null>(null);
+   protected readonly persons = [
+      { id: 1,type: 'A+', name:'javiko', last_name: 'Gutierrez', dni: '0105566046'},
+      { id: 2,type: 'A-', name:'javiko', last_name: 'Gutierrez', dni: '0105566046'},
+      { id: 3,type: 'B+', name:'Pablo Mesias', last_name: 'Gutierrez Urgiles', dni: '0105566038'},
+      { id: 4,type: 'B-', name:'javiko', last_name: 'Gutierrez', dni: '0105566046'},
+      { id: 5,type: 'AB+', name:'javiko', last_name: 'Gutierrez', dni: '0105566046'},
+      { id: 6,type: 'AB-', name:'javiko', last_name: 'Gutierrez', dni: '0105566046'},
+      { id: 7,type: 'O+', name:'javiko', last_name: 'Gutierrez', dni: '0105566046'},
+      { id: 8,type: 'O-', name:'javiko', last_name: 'Gutierrez', dni: '0105566046'},
+   ];
 
-   /** The list's own width, from its layout; 0 until the first one arrives. */
-   protected readonly width = signal(0);
-
-   /** Two on a phone, as many as fit at MIN_CARD_WIDTH on anything wider. */
-   protected readonly columns = computed(() =>
-      Math.max(2, Math.floor((this.width() + GAP) / (MIN_CARD_WIDTH + GAP))),
-   );
-
-   /** The types in rows of `columns`, the last one padded with nulls. */
-   protected readonly rows = computed(() => {
-      const columns = this.columns();
-      const rows: (string | null)[][] = [];
-      for (let i = 0; i < this.bloodTypes.length; i += columns) {
-         const row: (string | null)[] = this.bloodTypes.slice(i, i + columns);
-         while (row.length < columns) row.push(null);
-         rows.push(row);
-      }
-      return rows;
-   });
+   protected getFirstLetter( name: string, lastName: string ) {
+      return `${name.at(0) ?? ''}${lastName.at(0) ?? ''}`.trim().toUpperCase();
+   }
 }
