@@ -22,11 +22,13 @@ import {
 } from '@ng-icons/lucide';
 
 import { routes } from "./app.routes";
+import { provideDataSource } from "./core/data/provide-data-source.ts";
 
 export const appConfig = {
    globalStyles: tailwind,
    providers: [
       provideNativeRouter( routes, withComponentInputBinding(), withSvgIcons( SvgImages ) ),
+      provideDataSource('sqlite'),
       provideIcons({
          lucideHome,
          lucideMenu,
