@@ -1,4 +1,6 @@
 import { render, screen, userEvent } from '@ng-native/testing';
+import { signal } from '@angular/core';
+import { Accessibility } from '@ng-native/device';
 import { expect, test, vi } from 'vitest';
 import { UserList, bloodTypeGlyph } from './user-list.ts';
 import type { UserModel } from '../model/user.model.ts';
@@ -18,12 +20,23 @@ test('draws a row per user with their blood type, name and dni', async () => {
   expect(screen.getByText('0105566038')).toBeTruthy();
 });
 
-test('keeps a long name on one line', async () => {
+test('lets a long name wrap to two lines', async () => {
   await render(UserList, { inputs: { users } });
 
   const name = screen.getByText('Pablo Mesias Gutierrez Urgiles');
-  expect(name.props['numberOfLines']).toBe(1);
+  expect(name.props['numberOfLines']).toBe(2);
   expect(name.props['ellipsizeMode']).toBe('tail');
+});
+
+test('stacks the row and lets the name wrap freely at accessibility text sizes', async () => {
+  await render(UserList, {
+    inputs: { users },
+    providers: [{ provide: Accessibility, useValue: { fontScale: signal(2) } }],
+  });
+
+  const name = screen.getByText('Pablo Mesias Gutierrez Urgiles');
+  expect(name.props['numberOfLines']).toBe(0);
+  expect(screen.getByText('0105566038')).toBeTruthy();
 });
 
 test('emits the pressed user', async () => {

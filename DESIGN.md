@@ -202,6 +202,7 @@ Esquinas suaves y pocas formas: 12 pt en filas y tarjetas, 6 pt en controles seg
 Firme y escaneable: una fila es una persona.
 - **Forma:** tarjeta blanca de esquinas suaves (12 pt), padding 16 pt.
 - **Contenido:** bloque de tipo de sangre a la izquierda (mínimo 64 × 56 pt, 12 pt de radio, colores de la pastilla de sangre, grupo y signo en 20 pt semibold, negativo con el signo menos `−` y no un guion), nombre en Title, debajo la cédula en Meta con cifras tabulares, chevron a la derecha. El tipo de sangre es lo primero que se lee: no hay avatar de iniciales.
+- **Texto grande:** el nombre ocupa hasta dos líneas. Desde los tamaños de accesibilidad (`fontScale` ≥ 1,6) la fila se apila: bloque de sangre y chevron arriba, nombre sin límite de líneas y cédula a todo el ancho debajo, para que los 10 dígitos no se corten nunca.
 - **Oscuro:** superficie neutral 900 con borde hairline neutral 800, como las tarjetas agrupadas.
 - **Pulsado:** el fondo baja a neutral 100 (oscuro: neutral 800).
 - **Accesibilidad:** rol botón; la etiqueta dice nombre, apellidos y tipo de sangre.
