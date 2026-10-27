@@ -10,13 +10,13 @@ import { NativeNavigation } from "@ng-native/router";
    selector: 'home-screen',
    imports: [AppBar, AppBarRight, View, Pressable, NgIcon, UserList],
    template:`
-      <view class="flex-1 px-6 bg-zinc-100 dark:bg-neutral-950">
+      <view class="flex-1 px-6 bg-neutral-100 dark:bg-neutral-950">
          <app-bar title="Home">
             <pressable 
                appBarRight 
                accessibilityRole="button" 
-               accessibilityLabel="Search"
-               class="size-11 items-center justify-center rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+               accessibilityLabel="Añadir persona"
+               class="size-11 android:size-12 items-center justify-center rounded-full transition-colors hover:bg-black/5 dark:hover:bg-white/10"
                (press)="add()"
             >
                <ng-icon name="lucidePlus" class="text-black dark:text-neutral-50" size="24"/>

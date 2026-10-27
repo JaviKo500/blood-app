@@ -9,10 +9,10 @@ colors:
   control: "#f2f2f2"
   ink-muted: "#484848"
   ink: "#000000"
-  ink-subtle: "#71717b"
-  screen: "#f4f4f5"
+  ink-subtle: "#737373"
+  screen: "#f5f5f5"
   surface: "#ffffff"
-  avatar: "#e4e4e7"
+  avatar: "#e5e5e5"
   blood-chip-bg: "#ffe2e2"
   blood-chip-text: "#c10007"
   ink-dark: "#fafafa"
@@ -150,7 +150,7 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 - **Tinta** (ink / ink-dark): títulos y texto principal.
 - **Tinta apagada** (ink-muted / ink-muted-dark): encabezados de sección, etiquetas de controles.
 - **Tinta suave** (ink-subtle): cédula y metadatos de la fila, el chevron.
-- **Gris de avatar** (avatar; oscuro zinc 500): círculo de iniciales.
+- **Gris de avatar** (avatar; oscuro neutral 700): círculo de iniciales.
 
 ### Named Rules
 **The One Red Rule.** El carmesí de marca solo marca selección, foco o peligro. Si un elemento es rojo y no es ninguna de las tres cosas, sobra.
@@ -203,7 +203,8 @@ Esquinas suaves y pocas formas: 12 pt en filas y tarjetas, 6 pt en controles seg
 Firme y escaneable: una fila es una persona.
 - **Forma:** tarjeta blanca de esquinas suaves (12 pt), padding 16 pt.
 - **Contenido:** avatar de iniciales (48 pt, círculo gris), nombre en Title, debajo la pastilla de sangre y la cédula en Meta separadas por un punto medio, chevron a la derecha.
-- **Pulsado:** el fondo baja a neutral 100 (oscuro: neutral 700).
+- **Oscuro:** superficie neutral 900 con borde hairline neutral 800, como las tarjetas agrupadas.
+- **Pulsado:** el fondo baja a neutral 100 (oscuro: neutral 800).
 - **Accesibilidad:** rol botón; la etiqueta dice nombre, apellidos y tipo de sangre.
 - **Vacío:** texto centrado "No hay usuarios todavía" en Tinta suave.
 

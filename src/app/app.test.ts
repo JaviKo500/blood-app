@@ -6,7 +6,7 @@ import { appConfig } from './app.config.ts';
 test('boots on the home screen', async () => {
   await render(App, { providers: appConfig.providers });
 
-  expect(await screen.findByRole('button', { name: 'Search' })).toBeTruthy();
+  expect(await screen.findByRole('button', { name: 'Añadir persona' })).toBeTruthy();
   expect(screen.getAllByRole('button', { name: /Gutierrez/ })).toHaveLength(8);
 });
 
