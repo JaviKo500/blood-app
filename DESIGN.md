@@ -227,7 +227,7 @@ Firme y escaneable: una fila es una persona.
 
 ### Navigation
 - **Barra:** nativa, título grande; acciones a la derecha como botones de icono de 44 pt, circulares, con fondo negro al 5 % (oscuro: blanco al 10 %) al pulsar.
-- **Pestañas:** nativas de cada sistema, con iconos Lucide (Home, Settings).
+- **Pestañas:** nativas de cada sistema, con iconos Lucide: Personas (Users) y Ajustes (Settings).
 
 ## Do's and Don'ts
 

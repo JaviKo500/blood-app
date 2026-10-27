@@ -17,7 +17,7 @@ import { NativeNavigation } from "@ng-native/router";
       >
          <user-list [users]="users" (userSelected)="openUser($event)"/>
       </scroll-view>
-      <app-bar title="Home">
+      <app-bar title="Personas">
          <pressable
             appBarRight
             accessibilityRole="button"

@@ -9,7 +9,7 @@ import { NgIcon } from "@ng-native/icons";
    imports: [AppBar, View, ScrollView, Text, Pressable, NgIcon,],
    template:`
       <view class="flex-1 px-6 bg-neutral-100 dark:bg-neutral-950">
-         <app-bar title="Settings"></app-bar>
+         <app-bar title="Ajustes"></app-bar>
          <scroll-view class="flex-1" contentContainerClass="grow gap-8 pt-4 min-pb-safe-8">
             <view class="gap-2">
                <text accessibilityRole="header"
