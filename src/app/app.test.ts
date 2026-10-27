@@ -1,11 +1,11 @@
-import { render, screen, userEvent } from '@ng-native/testing';
+import { render, screen } from '@ng-native/testing';
 import { expect, test } from 'vitest';
 import { App } from './app.ts';
+import { appConfig } from './app.config.ts';
 
-test('counts taps', async () => {
-  await render(App);
+test('boots on the home screen', async () => {
+  await render(App, { providers: appConfig.providers });
 
-  await userEvent.setup().press(screen.getByRole('button', { name: 'Tapped 0 times' }));
-
-  expect(screen.getByText('Tapped 1 times')).toBeTruthy();
+  expect(await screen.findByRole('button', { name: 'Search' })).toBeTruthy();
+  expect(screen.getAllByRole('button', { name: /Gutierrez/ })).toHaveLength(8);
 });
