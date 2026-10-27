@@ -1,4 +1,4 @@
-import { Component, computed, inject } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { Text, View, Pressable, ScrollView, } from "@ng-native/components";
 import { AppBar } from "../../shared/appbar.shared";
 import { ColorScheme, Dialogs } from "@ng-native/device";
@@ -14,6 +14,7 @@ import {
    type UiPickerOption,
 } from "@ng-native/expo/expo-ui-components";
 import { ThemePreference } from "../../shared/theme.shared";
+import { UiAlertDialog, UiTextButton, type UiButtonColors } from "../../shared/alert-dialog.shared";
 import { NgIcon } from "@ng-native/icons";
 
 @Component({
@@ -21,6 +22,7 @@ import { NgIcon } from "@ng-native/icons";
    imports: [
       AppBar, View, ScrollView, Text, Pressable, NgIcon,
       UiHost, UiPicker, UiSingleChoiceSegmentedButtonRow, UiSegmentedButton, UiSlot, UiText,
+      UiAlertDialog, UiTextButton,
    ],
    template:`
       <scroll-view
@@ -97,6 +99,32 @@ import { NgIcon } from "@ng-native/icons";
             </text>
          </view>
          <text class="text-center text-sm text-ink-muted dark:text-neutral-300">Versión 1.0.0</text>
+         @if (confirmingDelete()) {
+            <!-- Android's confirmation: Material 3's dialog, in the brand's palette. iOS keeps
+                 its own alert, from Dialogs.confirm. -->
+            <ui-host
+               [matchContents]="true"
+               [attr.colorScheme]="scheme.current()"
+               [attr.seedColor]="brandSeed"
+            >
+               <ui-alert (dismiss)="confirmingDelete.set(false)">
+                  <ui-slot name="title"><ui-text text="¿Borrar todos los datos?" /></ui-slot>
+                  <ui-slot name="text">
+                     <ui-text text="Se borrarán todas las personas guardadas en este teléfono. No se puede deshacer." />
+                  </ui-slot>
+                  <ui-slot name="confirmButton">
+                     <ui-text-button [colors]="destructiveButton()" (press)="deleteAll()">
+                        <ui-text text="Borrar todo" />
+                     </ui-text-button>
+                  </ui-slot>
+                  <ui-slot name="dismissButton">
+                     <ui-text-button (press)="confirmingDelete.set(false)">
+                        <ui-text text="Cancelar" />
+                     </ui-text-button>
+                  </ui-slot>
+               </ui-alert>
+            </ui-host>
+         }
       </scroll-view>
       <app-bar title="Ajustes"></app-bar>
    `,
@@ -126,14 +154,30 @@ export class SettingsScreen{
       this.theme.set(value === 'light' || value === 'dark' ? value : null);
    }
 
+   /** Whether Android's Material 3 confirmation is open. */
+   protected readonly confirmingDelete = signal(false);
+   /** The confirming button in the brand's crimson; brand-light where the dialog is dark. */
+   protected readonly destructiveButton = computed<UiButtonColors>(() => ({
+      contentColor: this.scheme.current() === 'dark' ? '#ff5c7a' : '#d70032',
+   }));
+
    protected async confirmDeleteAll(): Promise<void> {
+      if (this.android) {
+         // The system's AlertDialog on Android is AppCompat's, which predates Material 3.
+         this.confirmingDelete.set(true);
+         return;
+      }
       const sure = await this.dialogs.confirm('¿Borrar todos los datos?', {
          message: 'Se borrarán todas las personas guardadas en este teléfono. No se puede deshacer.',
          confirm: 'Borrar todo',
          cancel: 'Cancelar',
          destructive: true,
       });
-      if (!sure) return;
+      if (sure) this.deleteAll();
+   }
+
+   protected deleteAll(): void {
+      this.confirmingDelete.set(false);
       // TODO: clear the people store once persistence exists; the list is sample data for now.
    }
 }
