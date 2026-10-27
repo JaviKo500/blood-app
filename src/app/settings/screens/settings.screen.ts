@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from "@angular/core";
 import { Text, View, Pressable, ScrollView, } from "@ng-native/components";
 import { AppBar } from "../../shared/appbar.shared";
+import { TabSafeAreaView } from "@ng-native/router";
 import { ColorScheme, Dialogs } from "@ng-native/device";
 import { nativePlatform } from "@ng-native/fabric";
 import {
@@ -22,7 +23,7 @@ import { NgIcon } from "@ng-native/icons";
    imports: [
       AppBar, View, ScrollView, Text, Pressable, NgIcon,
       UiHost, UiPicker, UiSingleChoiceSegmentedButtonRow, UiSegmentedButton, UiSlot, UiText,
-      UiAlertDialog, UiTextButton,
+      UiAlertDialog, UiTextButton, TabSafeAreaView,
    ],
    template:`
       <scroll-view
@@ -99,6 +100,10 @@ import { NgIcon } from "@ng-native/icons";
             </text>
          </view>
          <text class="text-center text-sm text-ink-muted dark:text-neutral-300">Versión 1.0.0</text>
+         @if (android) {
+            <!-- Android has no automatic inset: this spacer lifts the last row clear of the tab bar. -->
+            <tab-safe-area-view [edges]="['bottom']" />
+         }
          @if (confirmingDelete()) {
             <!-- Android's confirmation: Material 3's dialog, in the brand's palette. iOS keeps
                  its own alert, from Dialogs.confirm. -->

@@ -4,11 +4,12 @@ import { AppBar, AppBarRight } from "../../shared/appbar.shared";
 import { NgIcon } from "@ng-native/icons";
 import { UserList } from "../../user/components/user-list";
 import { UserModel } from "../../user/model/user.model";
-import { NativeNavigation } from "@ng-native/router";
+import { NativeNavigation, TabSafeAreaView } from "@ng-native/router";
+import { nativePlatform } from "@ng-native/fabric";
 
 @Component({
    selector: 'home-screen',
-   imports: [AppBar, AppBarRight, ScrollView, Pressable, NgIcon, UserList],
+   imports: [AppBar, AppBarRight, ScrollView, Pressable, NgIcon, UserList, TabSafeAreaView],
    template:`
       <scroll-view
          contentInsetAdjustmentBehavior="automatic"
@@ -16,6 +17,10 @@ import { NativeNavigation } from "@ng-native/router";
          contentContainerClass="grow px-6 pt-3 pb-8"
       >
          <user-list [users]="users" (userSelected)="openUser($event)"/>
+         @if (android) {
+            <!-- Android has no automatic inset: this spacer lifts the last row clear of the tab bar. -->
+            <tab-safe-area-view [edges]="['bottom']" />
+         }
       </scroll-view>
       <app-bar title="Personas">
          <pressable
@@ -34,6 +39,7 @@ import { NativeNavigation } from "@ng-native/router";
 
 export class HomeScreen{
    private readonly navigation = inject(NativeNavigation);
+   protected readonly android = nativePlatform() === 'android';
 
    protected readonly users: UserModel[] = [
       { id: 1, typeBlood: 'A+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },

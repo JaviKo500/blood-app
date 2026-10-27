@@ -13,7 +13,7 @@ import { ThemePreference } from './shared/theme.shared';
   imports: [ SafeAreaProvider, NativeStackOutlet],
   selector: 'app-root',
   template: `
-    <safe-area-provider>
+    <safe-area-provider class="bg-neutral-100 dark:bg-neutral-950">
       <native-stack-outlet />
     </safe-area-provider>
   `,
