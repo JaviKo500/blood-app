@@ -108,13 +108,13 @@ components:
 
 Blood App se diseña como la tarjeta de emergencia que se lleva en la cartera: un dato impreso grande, en el que se confía a primera vista. Cada pantalla responde a una persona con prisa (en urgencias, frente a un formulario, con una mano) que necesita leer un tipo de sangre y una cédula en segundos. Todo lo demás calla para que ese dato hable.
 
-La densidad es baja y ordenada: filas blancas sobre un fondo gris muy claro, una columna con margen lateral de 24 pt y el cromo nativo de cada sistema (barra de título grande, pestañas, pila de navegación). La marca no es un decorado; es un solo carmesí (#d70032) que aparece solo donde algo importa: la acción destructiva y el foco. La selección la dibujan los controles nativos de cada sistema. El tipo de sangre lleva su propio tono rojo suave en un bloque al inicio de la fila, y es el único dato de la fila que tiene color.
+La densidad es baja y ordenada: filas blancas sobre un fondo gris muy claro, una columna con margen lateral de 24 pt y el cromo nativo de cada sistema (barra de título grande, pestañas, pila de navegación). La marca no es un decorado; es un solo carmesí (#d70032) que aparece solo donde algo importa: la pestaña en la que estás, la acción destructiva y el foco. La selección dentro de un control la dibujan los controles nativos de cada sistema. El tipo de sangre lleva su propio tono rojo suave en un bloque al inicio de la fila, y es el único dato de la fila que tiene color.
 
 La tipografía es la del sistema (San Francisco en iOS, Roboto en Android) porque la app sigue las convenciones de cada plataforma. El documento de referencia `docs/design-system-tailwind.md` proponía Poppins; no está instalada y queda como decisión abierta, no como parte del sistema.
 
 **Key Characteristics:**
 - Un dato protagonista por fila: el tipo de sangre, grande, en un bloque rojo suave al inicio.
-- Un solo carmesí de marca, escaso, para foco y acciones destructivas.
+- Un solo carmesí de marca, escaso, para la pestaña actual, el foco y las acciones destructivas.
 - Cromo nativo de iOS y Android; nada de barras ni pestañas dibujadas a mano.
 - Profundidad tonal casi plana: sombra mínima en claro, borde de un píxel en oscuro.
 - Claro y oscuro completos, siguiendo al sistema por defecto.
@@ -141,7 +141,7 @@ Neutros sin tinte más un único carmesí de marca; el rojo suave de la pastilla
 - **Tinta suave** (ink-subtle): cédula y metadatos de la fila, el chevron.
 
 ### Named Rules
-**The One Red Rule.** El carmesí de marca solo marca foco o peligro. Si un elemento es rojo y no es ninguna de las dos cosas, sobra. Una preferencia, como el tema, nunca se pinta de carmesí.
+**The One Red Rule.** El carmesí de marca solo marca dónde estás (la pestaña actual), el foco o el peligro. Si un elemento es rojo y no es ninguna de las tres cosas, sobra. Una preferencia, como el tema, nunca se pinta de carmesí lleno.
 
 **The Blood Speaks Rule.** El tipo de sangre es el único dato de una fila con color propio, y nunca se comunica solo por color: el texto (A+, O-) siempre está escrito y anunciado.
 
@@ -219,7 +219,7 @@ Firme y escaneable: una fila es una persona.
 
 ### Navigation
 - **Barra:** nativa, título grande; acciones a la derecha como botones de icono de 44 pt, circulares, con fondo negro al 5 % (oscuro: blanco al 10 %) al pulsar.
-- **Pestañas:** nativas de cada sistema, con iconos Lucide: Personas (Users) y Ajustes (Settings).
+- **Pestañas:** nativas de cada sistema, con iconos Lucide: Personas (Users) y Ajustes (Settings). La activa en carmesí (oscuro: carmesí legible) con `tintColor`; en Android, que no lo lee, `standardAppearance` pone la píldora en rosa pálido de la marca (`#ffdadf`, oscuro `#5c1a24`), los ítems inactivos en tinta apagada y la barra en papel (`tabs.shared.ts`).
 
 ## Do's and Don'ts
 
