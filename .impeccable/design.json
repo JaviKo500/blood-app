@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-27T10:30:00Z",
+  "title": "Design System: Blood App",
+  "extensions": {
+    "colorMeta": {
+      "brand": { "role": "primary", "displayName": "Carmesí de cartera", "canonical": "#d70032", "tonalRamp": ["#3d000d", "#66001a", "#8e0022", "#b0002a", "#d70032", "#ff5c7a", "#ffb3c1", "#ffe5ea"] },
+      "brand-pressed": { "role": "primary", "displayName": "Carmesí pulsado", "canonical": "#b0002a" },
+      "brand-deep": { "role": "primary", "displayName": "Carmesí nocturno", "canonical": "#8e0022" },
+      "brand-light": { "role": "primary", "displayName": "Carmesí legible", "canonical": "#ff5c7a" },
+      "blood-chip-bg": { "role": "secondary", "displayName": "Pastilla de sangre", "canonical": "#ffe2e2", "tonalRamp": ["#460809", "#82181a", "#9f0712", "#c10007", "#fb2c36", "#ffa2a2", "#ffc9c9", "#ffe2e2"] },
+      "blood-chip-text": { "role": "secondary", "displayName": "Texto de pastilla", "canonical": "#c10007" },
+      "blood-chip-text-dark": { "role": "secondary", "displayName": "Texto de pastilla (oscuro)", "canonical": "#ffa2a2" },
+      "control": { "role": "neutral", "displayName": "Gris de control", "canonical": "#f2f2f2" },
+      "ink-muted": { "role": "neutral", "displayName": "Tinta apagada", "canonical": "#484848" },
+      "ink": { "role": "neutral", "displayName": "Tinta", "canonical": "#000000" },
+      "ink-subtle": { "role": "neutral", "displayName": "Tinta suave", "canonical": "#71717b" },
+      "screen": { "role": "neutral", "displayName": "Gris de sala", "canonical": "#f4f4f5", "tonalRamp": ["#09090b", "#18181b", "#3f3f46", "#52525c", "#71717b", "#d4d4d8", "#e4e4e7", "#f4f4f5"] },
+      "surface": { "role": "neutral", "displayName": "Papel", "canonical": "#ffffff" },
+      "avatar": { "role": "neutral", "displayName": "Gris de avatar", "canonical": "#e4e4e7" },
+      "ink-dark": { "role": "neutral", "displayName": "Tinta (oscuro)", "canonical": "#fafafa" },
+      "ink-muted-dark": { "role": "neutral", "displayName": "Tinta apagada (oscuro)", "canonical": "#d4d4d4" },
+      "screen-dark": { "role": "neutral", "displayName": "Gris de sala (oscuro)", "canonical": "#0a0a0a", "tonalRamp": ["#0a0a0a", "#171717", "#262626", "#404040", "#525252", "#737373", "#a1a1a1", "#d4d4d4"] },
+      "surface-dark": { "role": "neutral", "displayName": "Papel (oscuro)", "canonical": "#171717" },
+      "control-dark": { "role": "neutral", "displayName": "Gris de control (oscuro)", "canonical": "#262626" },
+      "control-pressed-dark": { "role": "neutral", "displayName": "Control pulsado (oscuro)", "canonical": "#404040" }
+    },
+    "typographyMeta": {
+      "title": { "displayName": "Title", "purpose": "Nombre y apellidos en la fila de persona." },
+      "body": { "displayName": "Body", "purpose": "Texto de filas de ajustes." },
+      "meta": { "displayName": "Meta", "purpose": "Cédula y datos secundarios." },
+      "label": { "displayName": "Label", "purpose": "Etiquetas de segmentos y botones." },
+      "section": { "displayName": "Section", "purpose": "Encabezados de grupo en ajustes, en mayúsculas." },
+      "chip": { "displayName": "Chip", "purpose": "Tipo de sangre dentro de su pastilla." }
+    },
+    "shadows": [
+      { "name": "card-halo", "value": "0 10px 15px -3px rgb(15 23 42 / 0.05), 0 4px 6px -4px rgb(15 23 42 / 0.05)", "purpose": "Tarjetas agrupadas de ajustes, solo en claro." }
+    ],
+    "motion": [
+      { "name": "color-transition", "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Cambio de fondo al pulsar o seleccionar (transition-colors)." }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "User Row",
+      "kind": "custom",
+      "refersTo": "user-row",
+      "description": "Una persona por fila: avatar de iniciales, nombre, pastilla de sangre y cédula.",
+      "html": "<div class=\"ds-screen\"><button class=\"ds-user-row\"><span class=\"ds-avatar\">PG</span><span class=\"ds-user-text\"><span class=\"ds-user-name\">Pablo Mesías Gutiérrez</span><span class=\"ds-user-meta\"><span class=\"ds-blood-chip\">B+</span><span class=\"ds-dot\">·</span><span class=\"ds-cedula\">0105566038</span></span></span><svg class=\"ds-chevron\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m9 18 6-6-6-6\"/></svg></button></div>",
+      "css": ".ds-screen { background: #f4f4f5; padding: 24px; font-family: -apple-system, system-ui, Roboto, sans-serif; } .ds-user-row { display: flex; align-items: center; gap: 16px; width: 100%; padding: 16px; background: #ffffff; border: none; border-radius: 12px; text-align: left; cursor: pointer; transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-user-row:hover, .ds-user-row:active { background: #f5f5f5; } .ds-user-row:focus-visible { outline: 2px solid #d70032; outline-offset: 2px; } .ds-avatar { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 9999px; background: #e4e4e7; font-weight: 600; color: #000; } .ds-user-text { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 0; } .ds-user-name { font-size: 16px; line-height: 1.5; font-weight: 500; color: #000; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ds-user-meta { display: flex; align-items: center; gap: 4px; } .ds-blood-chip { font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 9999px; background: #ffe2e2; color: #c10007; } .ds-dot, .ds-cedula { font-size: 14px; color: #71717b; } .ds-cedula { font-weight: 300; } .ds-chevron { color: #9f9fa9; flex-shrink: 0; }"
+    },
+    {
+      "name": "Blood Chip",
+      "kind": "chip",
+      "refersTo": "blood-chip",
+      "description": "Pastilla del tipo de sangre; el único dato de la fila con color propio.",
+      "html": "<span class=\"ds-blood-chip\">AB-</span>",
+      "css": ".ds-blood-chip { display: inline-block; font-family: -apple-system, system-ui, Roboto, sans-serif; font-size: 12px; line-height: 1.33; font-weight: 500; padding: 2px 8px; border-radius: 9999px; background: #ffe2e2; color: #c10007; }"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "custom",
+      "refersTo": "segment",
+      "description": "Selector de tema en ajustes: tres segmentos dentro de una tarjeta agrupada.",
+      "html": "<div class=\"ds-group-card\"><div class=\"ds-segments\" role=\"radiogroup\" aria-label=\"Tema\"><button class=\"ds-segment\" role=\"radio\" aria-checked=\"false\">Claro</button><button class=\"ds-segment\" role=\"radio\" aria-checked=\"true\">Oscuro</button><button class=\"ds-segment\" role=\"radio\" aria-checked=\"false\">Sistema</button></div></div>",
+      "css": ".ds-group-card { background: #ffffff; border-radius: 12px; padding: 8px; box-shadow: 0 10px 15px -3px rgb(15 23 42 / 0.05), 0 4px 6px -4px rgb(15 23 42 / 0.05); font-family: -apple-system, system-ui, Roboto, sans-serif; } .ds-segments { display: flex; gap: 8px; } .ds-segment { flex: 1; height: 48px; border: none; border-radius: 6px; background: #f2f2f2; color: #484848; font-size: 14px; font-weight: 500; cursor: pointer; transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-segment:hover, .ds-segment:active { background: #e5e5e5; } .ds-segment[aria-checked=\"true\"] { background: #d70032; color: #ffffff; } .ds-segment[aria-checked=\"true\"]:hover, .ds-segment[aria-checked=\"true\"]:active { background: #b0002a; } .ds-segment:focus-visible { outline: 2px solid #d70032; outline-offset: 2px; }"
+    },
+    {
+      "name": "Destructive Settings Row",
+      "kind": "custom",
+      "refersTo": "settings-row",
+      "description": "Fila de ajustes con acción destructiva: baldosa carmesí al 10 % e icono carmesí.",
+      "html": "<button class=\"ds-settings-row\"><span class=\"ds-icon-tile\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M3 6h18\"/><path d=\"M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6\"/><path d=\"M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2\"/><line x1=\"10\" x2=\"10\" y1=\"11\" y2=\"17\"/><line x1=\"14\" x2=\"14\" y1=\"11\" y2=\"17\"/></svg></span><span class=\"ds-settings-label\">Borrar todos los datos</span></button>",
+      "css": ".ds-settings-row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 8px 16px; background: #ffffff; border: none; border-radius: 12px; font-family: -apple-system, system-ui, Roboto, sans-serif; cursor: pointer; transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-settings-row:hover, .ds-settings-row:active { background: #fafafa; } .ds-icon-tile { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; background: rgb(215 0 50 / 0.1); color: #d70032; } .ds-settings-label { flex: 1; text-align: left; font-size: 16px; line-height: 1.5; color: #000; }"
+    },
+    {
+      "name": "App Bar Icon Button",
+      "kind": "button",
+      "refersTo": "icon-button",
+      "description": "Acción de la barra nativa: botón circular de 44 pt con icono Lucide de 24 pt.",
+      "html": "<button class=\"ds-icon-button\" aria-label=\"Añadir persona\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"/><path d=\"M12 5v14\"/></svg></button>",
+      "css": ".ds-icon-button { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: none; border-radius: 9999px; background: transparent; color: #000; cursor: pointer; transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1); } .ds-icon-button:hover, .ds-icon-button:active { background: rgb(0 0 0 / 0.05); } .ds-icon-button:focus-visible { outline: 2px solid #d70032; outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Wallet Card",
+    "overview": "Blood App se diseña como la tarjeta de emergencia que se lleva en la cartera: un dato impreso grande, en el que se confía a primera vista. Cada pantalla responde a una persona con prisa (en urgencias, frente a un formulario, con una mano) que necesita leer un tipo de sangre y una cédula en segundos. Todo lo demás calla para que ese dato hable.\n\nLa densidad es baja y ordenada: filas blancas sobre un fondo gris muy claro, una columna con margen lateral de 24 pt y el cromo nativo de cada sistema (barra de título grande, pestañas, pila de navegación). La marca no es un decorado; es un solo carmesí (#d70032) que aparece solo donde algo importa: la selección, la acción destructiva y el foco. El tipo de sangre lleva su propio tono rojo suave en una pastilla, y es el único dato de la fila que tiene color.\n\nLa tipografía es la del sistema (San Francisco en iOS, Roboto en Android) porque la app sigue las convenciones de cada plataforma. El documento de referencia `docs/design-system-tailwind.md` proponía Poppins; no está instalada y queda como decisión abierta, no como parte del sistema.",
+    "keyCharacteristics": [
+      "Un dato protagonista por fila: el tipo de sangre, en una pastilla roja suave.",
+      "Un solo carmesí de marca, escaso, para selección, foco y acciones destructivas.",
+      "Cromo nativo de iOS y Android; nada de barras ni pestañas dibujadas a mano.",
+      "Profundidad tonal casi plana: sombra mínima en claro, borde de un píxel en oscuro.",
+      "Claro y oscuro completos, siguiendo al sistema por defecto."
+    ],
+    "rules": [
+      { "name": "The One Red Rule", "body": "El carmesí de marca solo marca selección, foco o peligro. Si un elemento es rojo y no es ninguna de las tres cosas, sobra.", "section": "colors" },
+      { "name": "The Blood Speaks Rule", "body": "El tipo de sangre es el único dato de una fila con color propio, y nunca se comunica solo por color: el texto (A+, O-) siempre está escrito y anunciado.", "section": "colors" },
+      { "name": "The Dynamic Type Rule", "body": "Ningún tamaño fijo impide que el texto escale con la configuración del sistema; una fila crece en alto antes que recortar el tipo de sangre.", "section": "typography" },
+      { "name": "The Tone-Not-Shadow Rule", "body": "En oscuro la separación la dan el tono y el borde hairline, nunca una sombra.", "section": "elevation" }
+    ],
+    "dos": [
+      "**Do** usar los tokens `brand`, `control` e `ink-muted` de `src/styles.css`, no rojos ni grises de la escala de Tailwind que se le parezcan.",
+      "**Do** declarar cada superficie en ambos modos en la misma lista de clases (`bg-white dark:bg-neutral-900`).",
+      "**Do** mantener las zonas táctiles en 44 pt como mínimo.",
+      "**Do** dejar que la barra, las pestañas y la pila sean las nativas de cada plataforma.",
+      "**Do** usar iconos Lucide con un trazo coherente, a 18–24 pt."
+    ],
+    "donts": [
+      "**Don't** usar `red-500` o `red-600` para la selección; es `brand` con `brand-pressed` al pulsar.",
+      "**Don't** poner `--font-sans: Poppins` sin registrar antes la fuente: en nativo cae en silencio a la del sistema.",
+      "**Don't** usar sombras en modo oscuro.",
+      "**Don't** usar el carmesí de marca para decorar; ni para el tipo de sangre, que tiene su pastilla propia.",
+      "**Don't** comunicar el tipo de sangre o la selección solo con color."
+    ]
+  }
+}

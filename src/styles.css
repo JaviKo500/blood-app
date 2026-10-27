@@ -2,3 +2,14 @@
 @import 'tailwindcss/utilities.css';
 @import '@ng-native/tailwind/native.css';
 @source not '../docs/';
+
+/* Blood App tokens: only what Tailwind's palette lacks. Grays come from neutral/zinc. */
+@theme {
+  --color-brand: #d70032;
+  --color-brand-pressed: #b0002a;
+  --color-brand-deep: #8e0022;
+  --color-brand-light: #ff5c7a;
+
+  --color-control: #f2f2f2;
+  --color-ink-muted: #484848;
+}
