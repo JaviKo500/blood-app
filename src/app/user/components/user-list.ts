@@ -6,7 +6,7 @@ import { UserModel } from "../model/user.model";
 @Component({
    selector: 'user-list',
    template: `
-      <scroll-view class="flex-1" contentContainerClass="grow px-6 min-pt-safe-12 min-pb-safe-32">
+      <scroll-view class="flex-1" contentContainerClass="grow min-pt-safe-12 min-pb-safe-32">
          <view class="gap-3">
             @for (row of rows(); track row.id) {
                <pressable

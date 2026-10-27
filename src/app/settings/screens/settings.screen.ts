@@ -8,7 +8,7 @@ import { NgIcon } from "@ng-native/icons";
    selector: 'settings-screen',
    imports: [AppBar, View, ScrollView, Text, Pressable, NgIcon,],
    template:`
-      <view class="flex-1 px-4 bg-zinc-100 dark:bg-neutral-950">
+      <view class="flex-1 px-6 bg-zinc-100 dark:bg-neutral-950">
          <app-bar title="Settings"></app-bar>
          <scroll-view class="flex-1" contentContainerClass="grow gap-8 pt-4 min-pb-safe-8">
             <view class="gap-2">

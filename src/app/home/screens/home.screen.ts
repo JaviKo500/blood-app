@@ -9,7 +9,7 @@ import { UserModel } from "../../user/model/user.model";
    selector: 'home-screen',
    imports: [AppBar, AppBarRight, View, Pressable, NgIcon, UserList],
    template:`
-      <view class="flex-1 px-4 bg-zinc-100 dark:bg-neutral-950">
+      <view class="flex-1 px-6 bg-zinc-100 dark:bg-neutral-950">
          <app-bar title="Home">
             <pressable 
                appBarRight 
