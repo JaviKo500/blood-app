@@ -45,7 +45,7 @@ import { UserModel } from "../model/user.model";
       </view>
 
       <ng-template #tile let-row>
-         <view [style]="{ minWidth: 64, minHeight: 56 }" class="px-2 rounded-xl items-center justify-center bg-red-100 dark:bg-red-900/40">
+         <view [style]="{ minWidth: tileWidth(), minHeight: 56 }" class="px-2 rounded-xl items-center justify-center bg-red-100 dark:bg-red-900/40">
             <text class="text-xl font-semibold text-red-700 dark:text-red-300">{{ row.bloodType }}</text>
          </view>
       </ng-template>
@@ -73,12 +73,16 @@ export class UserList {
    /** From the accessibility text sizes a row cannot hold the tile, the name and a 10-digit cédula side by side. */
    protected readonly stacked = computed(() => this.accessibility.fontScale() >= STACK_FONT_SCALE);
 
+   /** Wide enough for "AB−" at the current text size, so every name in the list starts at one edge. */
+   protected readonly tileWidth = computed(() => Math.round(TILE_WIDTH * Math.max(1, this.accessibility.fontScale())));
+
    protected readonly rows = computed(() =>
       this.users().map(user => ({ ...user, bloodType: bloodTypeGlyph(user.typeBlood), spoken: spokenUser(user) }))
    );
 }
 
 const STACK_FONT_SCALE = 1.6;
+const TILE_WIDTH = 64;
 
 /** A hyphen is a short dash beside a plus; the minus sign is as wide as the plus it opposes. */
 export const bloodTypeGlyph = (type: string) => type.replace('-', '−');
