@@ -66,12 +66,12 @@ spacing:
   gutter: "24px"
   section: "32px"
 components:
-  user-row:
+  person-row:
     backgroundColor: "{colors.surface}"
     textColor: "{colors.ink}"
     rounded: "{rounded.xl}"
     padding: "16px"
-  user-row-pressed:
+  person-row-pressed:
     backgroundColor: "#f5f5f5"
   avatar:
     backgroundColor: "{colors.avatar}"
@@ -187,7 +187,7 @@ Esquinas suaves y pocas formas: 12 pt en filas y tarjetas, 6 pt en iconos de fil
 
 ## Components
 
-### User Row (componente característico)
+### Person Row (componente característico)
 Firme y escaneable: una fila es una persona.
 - **Forma:** tarjeta blanca de esquinas suaves (12 pt), padding 16 pt.
 - **Contenido:** bloque de tipo de sangre a la izquierda (mínimo 64 × 56 pt, 12 pt de radio, colores de la pastilla de sangre, grupo y signo en 20 pt semibold, negativo con el signo menos `−` y no un guion), nombre en Title, debajo la cédula en Meta con cifras tabulares, chevron a la derecha. El tipo de sangre es lo primero que se lee: no hay avatar de iniciales.
@@ -195,7 +195,7 @@ Firme y escaneable: una fila es una persona.
 - **Oscuro:** superficie neutral 900 con borde hairline neutral 800, como las tarjetas agrupadas.
 - **Pulsado:** el fondo baja a neutral 100 (oscuro: neutral 800).
 - **Accesibilidad:** rol botón con el hint «Abre la ficha»; la etiqueta dice nombre y apellidos, el tipo de sangre en palabras («tipo de sangre A B negativo», letras separadas y signo como «positivo» o «negativo») y la cédula dígito a dígito.
-- **Vacío:** texto centrado "No hay usuarios todavía" en Tinta suave.
+- **Vacío:** texto centrado "No hay personas todavía" en Tinta suave.
 
 ### Chips
 - **Bloque de sangre:** el tipo de sangre en la fila de persona; fondo rojo suave con texto rojo oscuro, en oscuro rojo 900 al 40 % con texto rojo 300. Solo para el tipo de sangre.
@@ -214,7 +214,7 @@ Firme y escaneable: una fila es una persona.
 - **Pie de grupo:** texto de 14 pt en tinta apagada (oscuro: neutral 300), sangrado 16 pt, 8 pt bajo la tarjeta; explica qué hace el grupo o qué promete. No usa tinta suave: a 14 pt sobre gris de sala no llega a 4,5:1.
 
 ### Form Field
-- **Campo:** relleno en gris de control (oscuro: neutral 800), 12 pt de radio, mínimo 52 pt de alto, padding 16 pt, icono Lucide de 18 pt en tinta apagada a la izquierda (`user/components/user-field.ts`). La etiqueta va como placeholder y como `accessibilityLabel`; placeholder `#6b6b6b` (oscuro: neutral 400).
+- **Campo:** relleno en gris de control (oscuro: neutral 800), 12 pt de radio, mínimo 52 pt de alto, padding 16 pt, icono Lucide de 18 pt en tinta apagada a la izquierda (`person/components/person-field.ts`). La etiqueta va como placeholder y como `accessibilityLabel`; placeholder `#6b6b6b` (oscuro: neutral 400).
 - **Foco y error:** borde de 2 pt en carmesí (oscuro: carmesí legible), transparente en reposo para que nada salte. El error aparece al salir del campo o al intentar guardar, nunca mientras se escribe: icono de alerta y texto de 14 pt en carmesí bajo el campo, con rol `alert`.
 - **Grupos:** encabezado de grupo y tarjeta agrupada, como en Ajustes: Identidad, Tipo de sangre, Contacto (opcional).
 - **Tipo de sangre:** rejilla de 2 × 4 (2 columnas desde `fontScale` ≥ 1,6), celdas de 56 pt en gris de control; la elegida toma los colores del bloque de sangre, un borde de 2 pt en su rojo oscuro y un check. Rol `radiogroup`/`radio` con `checked`, anunciada en palabras. Nada viene preseleccionado.

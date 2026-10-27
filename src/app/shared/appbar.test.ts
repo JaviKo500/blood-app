@@ -9,7 +9,7 @@ test('draws the action the screen projects into the app bar', async () => {
   expect(screen.getByRole('button', { name: 'Añadir persona' })).toBeTruthy();
 });
 
-test('hands its users to the list', async () => {
+test('hands its persons to the list', async () => {
   await render(HomeScreen, { providers: appConfig.providers });
 
   expect(screen.getAllByRole('button', { name: /Gutierrez/ })).toHaveLength(8);

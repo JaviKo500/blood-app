@@ -26,7 +26,7 @@ A private family record, not a donor network or a medical system: it lives on th
 
 ## Capabilities and Constraints
 
-- Each person record: name, last name, cédula (DNI), blood type (A+, A-, B+, B-, AB+, AB-, O+, O-), optional email and phone (`src/app/user/model/user.model.ts`).
+- Each person record: name, last name, cédula (DNI), blood type (A+, A-, B+, B-, AB+, AB-, O+, O-), optional email and phone (`src/app/person/model/person.model.ts`).
 - Flows: list of people (home tab), add person, view person, edit person, settings (theme: light, dark, system; delete all data).
 - Data stays on the device. No account, no backend, no sync. "Borrar todos los datos" removes everything.
 - Persistence is not implemented yet: the home list is hard-coded sample data.

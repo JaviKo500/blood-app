@@ -2,7 +2,7 @@ import { Haptics } from '@ng-native/expo/haptics';
 import { NativeNavigation } from '@ng-native/router';
 import { render, screen, userEvent } from '@ng-native/testing';
 import { expect, test, vi } from 'vitest';
-import { UserFormScreen } from './user.form.screen.ts';
+import { PersonFormScreen } from './person.form.screen.ts';
 import { appConfig } from '../../app.config.ts';
 
 function setup() {
@@ -17,7 +17,7 @@ function setup() {
 
 test('saves a new person once the required fields are filled', async () => {
   const { navigation, providers } = setup();
-  await render(UserFormScreen, { providers });
+  await render(PersonFormScreen, { providers });
   const user = userEvent.setup();
 
   await user.type(screen.getByLabelText('Nombres'), 'Ana');
@@ -32,7 +32,7 @@ test('saves a new person once the required fields are filled', async () => {
 
 test('says what is missing instead of saving', async () => {
   const { navigation, providers } = setup();
-  await render(UserFormScreen, { providers });
+  await render(PersonFormScreen, { providers });
 
   await userEvent.setup().press(screen.getByRole('button', { name: 'Guardar' }));
 
@@ -44,7 +44,7 @@ test('says what is missing instead of saving', async () => {
 
 test('asks for the ten digits of the cédula', async () => {
   const { providers } = setup();
-  await render(UserFormScreen, { providers });
+  await render(PersonFormScreen, { providers });
 
   await userEvent.setup().type(screen.getByLabelText('Cédula'), '01055');
 
@@ -54,7 +54,7 @@ test('asks for the ten digits of the cédula', async () => {
 
 test('opens with the person filled in when editing', async () => {
   const { providers } = setup();
-  await render(UserFormScreen, { providers, inputs: { id: '3' } });
+  await render(PersonFormScreen, { providers, inputs: { id: '3' } });
 
   expect(screen.getByDisplayValue('Pablo Mesias')).toBeTruthy();
   expect(screen.getByDisplayValue('0105566038')).toBeTruthy();

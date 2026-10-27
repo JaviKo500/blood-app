@@ -3,10 +3,10 @@ import { NgTemplateOutlet } from "@angular/common";
 import { View, Pressable, Text } from "@ng-native/components";
 import { NgIcon } from "@ng-native/icons";
 import { Accessibility } from "@ng-native/device";
-import { UserModel } from "../model/user.model";
+import { PersonModel } from "../model/person.model";
 
 @Component({
-   selector: 'user-list',
+   selector: 'person-list',
    template: `
       <view class="gap-3">
          @for (row of rows(); track row.id) {
@@ -14,7 +14,7 @@ import { UserModel } from "../model/user.model";
                accessibilityRole="button"
                [accessibilityLabel]="row.spoken"
                accessibilityHint="Abre la ficha"
-               (press)="userSelected.emit(row)"
+               (press)="personSelected.emit(row)"
                class="p-4 bg-white rounded-xl transition-colors hover:bg-neutral-100
                   focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2
                   dark:border-hairline dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800
@@ -40,7 +40,7 @@ import { UserModel } from "../model/user.model";
                }
             </pressable>
          } @empty {
-            <text class="text-center text-neutral-500 dark:text-neutral-400 py-12">No hay usuarios todavía</text>
+            <text class="text-center text-neutral-500 dark:text-neutral-400 py-12">No hay personas todavía</text>
          }
       </view>
 
@@ -63,12 +63,12 @@ import { UserModel } from "../model/user.model";
    `,
    imports: [View, Pressable, Text, NgIcon, NgTemplateOutlet],
 })
-export class UserList {
+export class PersonList {
    private readonly accessibility = inject(Accessibility);
 
-   readonly users = input<UserModel[]>([]);
+   readonly persons = input<PersonModel[]>([]);
 
-   readonly userSelected = output<UserModel>();
+   readonly personSelected = output<PersonModel>();
 
    /** From the accessibility text sizes a row cannot hold the tile, the name and a 10-digit cédula side by side. */
    protected readonly stacked = computed(() => this.accessibility.fontScale() >= STACK_FONT_SCALE);
@@ -77,7 +77,7 @@ export class UserList {
    protected readonly tileWidth = computed(() => Math.round(TILE_WIDTH * Math.max(1, this.accessibility.fontScale())));
 
    protected readonly rows = computed(() =>
-      this.users().map(user => ({ ...user, bloodType: bloodTypeGlyph(user.typeBlood), spoken: spokenUser(user) }))
+      this.persons().map(person => ({ ...person, bloodType: bloodTypeGlyph(person.typeBlood), spoken: spokenPerson(person) }))
    );
 }
 
@@ -87,10 +87,10 @@ const TILE_WIDTH = 64;
 /** A hyphen is a short dash beside a plus; the minus sign is as wide as the plus it opposes. */
 export const bloodTypeGlyph = (type: string) => type.replace('-', '−');
 
-export const spokenUser = (user: UserModel) => [
-   `${user.name} ${user.lastName}`.trim(),
-   `tipo de sangre ${spokenBloodType(user.typeBlood)}`,
-   user.dni.trim() ? `cédula ${spaced(user.dni.trim())}` : '',
+export const spokenPerson = (person: PersonModel) => [
+   `${person.name} ${person.lastName}`.trim(),
+   `tipo de sangre ${spokenBloodType(person.typeBlood)}`,
+   person.dni.trim() ? `cédula ${spaced(person.dni.trim())}` : '',
 ].filter(Boolean).join(', ');
 
 export const spokenBloodType = (type: string) => {

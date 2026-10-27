@@ -9,11 +9,11 @@ import { nativePlatform } from "@ng-native/fabric";
 import { NativeNavigation, TabSafeAreaView } from "@ng-native/router";
 import { AppBar, AppBarRight } from "../../shared/appbar.shared";
 import { UiAlertDialog, UiTextButton, type UiButtonColors } from "../../shared/alert-dialog.shared";
-import { bloodTypeGlyph, spokenBloodType } from "../components/user-list";
-import { UserModel } from "../model/user.model";
+import { bloodTypeGlyph, spokenBloodType } from "../components/person-list";
+import { PersonModel } from "../model/person.model";
 
 @Component({
-   selector: 'user-screen',
+   selector: 'person-screen',
    imports: [
       View, ScrollView, Text, Pressable, NgIcon, AppBar, AppBarRight, TabSafeAreaView,
       UiHost, UiSlot, UiText, UiAlertDialog, UiTextButton,
@@ -36,7 +36,7 @@ import { UserModel } from "../model/user.model";
             </view>
 
             <text accessibilityRole="header" class="text-xl font-semibold text-black dark:text-neutral-50">
-               {{ user().name }} {{ user().lastName }}
+               {{ person().name }} {{ person().lastName }}
             </text>
 
             <pressable
@@ -63,7 +63,7 @@ import { UserModel } from "../model/user.model";
             </pressable>
          </view>
 
-         @if (user().phone || user().email) {
+         @if (person().phone || person().email) {
             <view class="gap-2">
                <text accessibilityRole="header"
                   class="px-4 text-xs font-medium uppercase tracking-wide text-ink-muted dark:text-neutral-300">
@@ -71,7 +71,7 @@ import { UserModel } from "../model/user.model";
                </text>
                <view class="overflow-hidden rounded-xl bg-white shadow-lg shadow-slate-900/5
                             dark:border-hairline dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-none">
-                  @if (user().phone; as phone) {
+                  @if (person().phone; as phone) {
                      <pressable accessibilityRole="button"
                         [accessibilityLabel]="'Teléfono ' + phone"
                         accessibilityHint="Llama a este número"
@@ -84,11 +84,11 @@ import { UserModel } from "../model/user.model";
                         <text class="flex-1 text-base tabular-nums text-black dark:text-neutral-50">{{ phone }}</text>
                      </pressable>
                   }
-                  @if (user().phone && user().email) {
+                  @if (person().phone && person().email) {
                      <!-- Inset to the text, past the icon tile, as iOS insets a grouped list's divider. -->
                      <view class="ml-15 h-hairline bg-neutral-200 dark:bg-neutral-800"></view>
                   }
-                  @if (user().email; as email) {
+                  @if (person().email; as email) {
                      <pressable accessibilityRole="button"
                         [accessibilityLabel]="'Correo ' + email"
                         accessibilityHint="Escribe un correo"
@@ -161,7 +161,7 @@ import { UserModel } from "../model/user.model";
    host: { style: 'flex: 1' },
 })
 
-export class UserScreen{
+export class PersonScreen{
    private readonly navigation = inject(NativeNavigation);
    private readonly dialogs = inject(Dialogs);
    private readonly links = inject(DeepLinks);
@@ -176,19 +176,19 @@ export class UserScreen{
    readonly id = input<string>();
 
    // TODO: look the person up by id once there is a store; until then every id shows this sample.
-   protected readonly user = signal<UserModel>(SAMPLE_USER);
+   protected readonly person = signal<PersonModel>(SAMPLE_PERSON);
 
-   protected readonly bloodType = computed(() => bloodTypeGlyph(this.user().typeBlood));
-   protected readonly spokenBlood = computed(() => spokenBloodType(this.user().typeBlood));
-   protected readonly groupedDni = computed(() => groupDni(this.user().dni));
-   protected readonly spokenDni = computed(() => [...this.user().dni.trim()].join(' '));
+   protected readonly bloodType = computed(() => bloodTypeGlyph(this.person().typeBlood));
+   protected readonly spokenBlood = computed(() => spokenBloodType(this.person().typeBlood));
+   protected readonly groupedDni = computed(() => groupDni(this.person().dni));
+   protected readonly spokenDni = computed(() => [...this.person().dni.trim()].join(' '));
 
    /** Whether the cédula was just copied: the row says so for a moment, then offers to copy again. */
    protected readonly copied = signal(false);
    private copiedTimer?: ReturnType<typeof setTimeout>;
 
    protected async copyDni(): Promise<void> {
-      await this.clipboard.write(this.user().dni.trim());
+      await this.clipboard.write(this.person().dni.trim());
       this.haptics.notify('success');
       this.accessibility.announce('Cédula copiada');
       this.copied.set(true);
@@ -201,12 +201,12 @@ export class UserScreen{
    }
 
    protected edit(): void {
-      void this.navigation.push(['/home/user', this.user().id.toString(), 'edit']);
+      void this.navigation.push(['/home/person', this.person().id.toString(), 'edit']);
    }
 
    /** Whether Android's Material 3 confirmation is open. */
    protected readonly confirmingDelete = signal(false);
-   protected readonly deleteTitle = computed(() => `¿Eliminar a ${this.user().name}?`);
+   protected readonly deleteTitle = computed(() => `¿Eliminar a ${this.person().name}?`);
    protected readonly deleteMessage = 'Se borrarán su tipo de sangre, su cédula y su contacto de este teléfono. No se puede deshacer.';
    /** The confirming button in the brand's crimson; brand-light where the dialog is dark. */
    protected readonly destructiveButton = computed<UiButtonColors>(() => ({
@@ -237,7 +237,7 @@ export class UserScreen{
 
 const COPIED_MS = 2000;
 
-const SAMPLE_USER: UserModel = {
+const SAMPLE_PERSON: PersonModel = {
    id: 3,
    typeBlood: 'AB-',
    name: 'Pablo Mesias',

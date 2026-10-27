@@ -7,15 +7,15 @@ import { Haptics } from "@ng-native/expo/haptics";
 import { nativePlatform } from "@ng-native/fabric";
 import { NativeNavigation, TabSafeAreaView } from "@ng-native/router";
 import { AppBar } from "../../shared/appbar.shared";
-import { bloodTypeGlyph, spokenBloodType } from "../components/user-list";
-import { UserField } from "../components/user-field";
-import { UserModel } from "../model/user.model";
+import { bloodTypeGlyph, spokenBloodType } from "../components/person-list";
+import { PersonField } from "../components/person-field";
+import { PersonModel } from "../model/person.model";
 
 @Component({
-   selector: 'user-form-screen',
+   selector: 'person-form-screen',
    imports: [
       View, ScrollView, KeyboardAvoidingView, Text, TextInput, Pressable, NgIcon, FormField,
-      AppBar, TabSafeAreaView, UserField,
+      AppBar, TabSafeAreaView, PersonField,
    ],
    template:`
       <keyboard-avoiding-view class="flex-1 bg-neutral-100 dark:bg-neutral-950">
@@ -32,7 +32,7 @@ import { UserModel } from "../model/user.model";
                </text>
                <view class="gap-3 rounded-xl bg-white p-4 shadow-lg shadow-slate-900/5
                             dark:border-hairline dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-none">
-                  <user-field icon="lucideUser" [focused]="focused() === 'name'" [error]="errorOf(person.name)">
+                  <person-field icon="lucideUser" [focused]="focused() === 'name'" [error]="errorOf(person.name)">
                      <text-input #name
                         [formField]="person.name"
                         accessibilityLabel="Nombres"
@@ -49,8 +49,8 @@ import { UserModel } from "../model/user.model";
                         [selectionColor]="caretColor()"
                         class="flex-1 py-3 text-base text-black dark:text-neutral-50"
                      />
-                  </user-field>
-                  <user-field icon="lucideUser" [focused]="focused() === 'lastName'" [error]="errorOf(person.lastName)">
+                  </person-field>
+                  <person-field icon="lucideUser" [focused]="focused() === 'lastName'" [error]="errorOf(person.lastName)">
                      <text-input #lastName
                         [formField]="person.lastName"
                         accessibilityLabel="Apellidos"
@@ -67,8 +67,8 @@ import { UserModel } from "../model/user.model";
                         [selectionColor]="caretColor()"
                         class="flex-1 py-3 text-base text-black dark:text-neutral-50"
                      />
-                  </user-field>
-                  <user-field icon="lucideIdCard" [focused]="focused() === 'dni'" [error]="errorOf(person.dni)">
+                  </person-field>
+                  <person-field icon="lucideIdCard" [focused]="focused() === 'dni'" [error]="errorOf(person.dni)">
                      <text-input #dni
                         [formField]="person.dni"
                         accessibilityLabel="Cédula"
@@ -83,7 +83,7 @@ import { UserModel } from "../model/user.model";
                         [selectionColor]="caretColor()"
                         class="flex-1 py-3 text-base tabular-nums text-black dark:text-neutral-50"
                      />
-                  </user-field>
+                  </person-field>
                </view>
             </view>
 
@@ -138,7 +138,7 @@ import { UserModel } from "../model/user.model";
                </text>
                <view class="gap-3 rounded-xl bg-white p-4 shadow-lg shadow-slate-900/5
                             dark:border-hairline dark:border-neutral-800 dark:bg-neutral-900 dark:shadow-none">
-                  <user-field icon="lucidePhone" [focused]="focused() === 'phone'" [error]="errorOf(person.phone)">
+                  <person-field icon="lucidePhone" [focused]="focused() === 'phone'" [error]="errorOf(person.phone)">
                      <text-input #phone
                         [formField]="person.phone"
                         accessibilityLabel="Teléfono"
@@ -155,8 +155,8 @@ import { UserModel } from "../model/user.model";
                         [selectionColor]="caretColor()"
                         class="flex-1 py-3 text-base tabular-nums text-black dark:text-neutral-50"
                      />
-                  </user-field>
-                  <user-field icon="lucideMail" [focused]="focused() === 'email'" [error]="errorOf(person.email)">
+                  </person-field>
+                  <person-field icon="lucideMail" [focused]="focused() === 'email'" [error]="errorOf(person.email)">
                      <text-input #mail
                         [formField]="person.email"
                         accessibilityLabel="Correo"
@@ -173,7 +173,7 @@ import { UserModel } from "../model/user.model";
                         [selectionColor]="caretColor()"
                         class="flex-1 py-3 text-base text-black dark:text-neutral-50"
                      />
-                  </user-field>
+                  </person-field>
                </view>
                <text class="px-4 text-sm text-ink-muted dark:text-neutral-300">Solo se guarda en este teléfono.</text>
             </view>
@@ -197,7 +197,7 @@ import { UserModel } from "../model/user.model";
    host: { style: 'flex: 1' },
 })
 
-export class UserFormScreen implements OnInit {
+export class PersonFormScreen implements OnInit {
    private readonly navigation = inject(NativeNavigation);
    private readonly haptics = inject(Haptics);
    private readonly accessibility = inject(Accessibility);
@@ -238,7 +238,7 @@ export class UserFormScreen implements OnInit {
    ngOnInit(): void {
       if (!this.editing()) return;
       // TODO: look the person up by id once there is a store; until then every id edits this sample.
-      const { name, lastName, dni, typeBlood, phone = '', email = '' } = SAMPLE_USER;
+      const { name, lastName, dni, typeBlood, phone = '', email = '' } = SAMPLE_PERSON;
       this.data.set({ name, lastName, dni, typeBlood, phone, email });
    }
 
@@ -278,7 +278,7 @@ interface PersonForm {
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 const STACK_FONT_SCALE = 1.6;
 
-const SAMPLE_USER: UserModel = {
+const SAMPLE_PERSON: PersonModel = {
    id: 3,
    typeBlood: 'AB-',
    name: 'Pablo Mesias',

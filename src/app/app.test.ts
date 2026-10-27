@@ -10,7 +10,7 @@ test('boots on the home screen', async () => {
   expect(screen.getAllByRole('button', { name: /Gutierrez/ })).toHaveLength(8);
 });
 
-test('pushes the user screen when a person is pressed', async () => {
+test('pushes the person screen when a person is pressed', async () => {
   await render(App, { providers: appConfig.providers });
   const user = userEvent.setup();
 

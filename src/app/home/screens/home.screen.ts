@@ -2,21 +2,21 @@ import { Component, inject } from "@angular/core";
 import { Pressable, ScrollView } from "@ng-native/components";
 import { AppBar, AppBarRight } from "../../shared/appbar.shared";
 import { NgIcon } from "@ng-native/icons";
-import { UserList } from "../../user/components/user-list";
-import { UserModel } from "../../user/model/user.model";
+import { PersonList } from "../../person/components/person-list";
+import { PersonModel } from "../../person/model/person.model";
 import { NativeNavigation, TabSafeAreaView } from "@ng-native/router";
 import { nativePlatform } from "@ng-native/fabric";
 
 @Component({
    selector: 'home-screen',
-   imports: [AppBar, AppBarRight, ScrollView, Pressable, NgIcon, UserList, TabSafeAreaView],
+   imports: [AppBar, AppBarRight, ScrollView, Pressable, NgIcon, PersonList, TabSafeAreaView],
    template:`
       <scroll-view
          contentInsetAdjustmentBehavior="automatic"
          class="flex-1 bg-neutral-100 dark:bg-neutral-950"
          contentContainerClass="grow px-6 pt-3 pb-8"
       >
-         <user-list [users]="users" (userSelected)="openUser($event)"/>
+         <person-list [persons]="persons" (personSelected)="openPerson($event)"/>
          @if (android) {
             <!-- Android has no automatic inset: this spacer lifts the last row clear of the tab bar. -->
             <tab-safe-area-view [edges]="['bottom']" />
@@ -41,7 +41,7 @@ export class HomeScreen{
    private readonly navigation = inject(NativeNavigation);
    protected readonly android = nativePlatform() === 'android';
 
-   protected readonly users: UserModel[] = [
+   protected readonly persons: PersonModel[] = [
       { id: 1, typeBlood: 'A+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
       { id: 2, typeBlood: 'A-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
       { id: 3, typeBlood: 'B+', name: 'Pablo Mesias', lastName: 'Gutierrez Urgiles', dni: '0105566038' },
@@ -53,10 +53,10 @@ export class HomeScreen{
    ];
 
    protected add() {
-      void this.navigation.push(['/home/user/new']);
+      void this.navigation.push(['/home/person/new']);
    }
 
-   protected openUser(user: UserModel) {
-      void this.navigation.push(['/home/user', user.id.toString()]);
+   protected openPerson(person: PersonModel) {
+      void this.navigation.push(['/home/person', person.id.toString()]);
    }
 }

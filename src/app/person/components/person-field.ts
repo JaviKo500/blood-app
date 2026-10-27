@@ -8,7 +8,7 @@ import { NgIcon } from "@ng-native/icons";
  * the two places the One Red Rule lets it in.
  */
 @Component({
-   selector: 'user-field',
+   selector: 'person-field',
    imports: [View, Text, NgIcon],
    template: `
       <view class="gap-1.5">
@@ -25,7 +25,7 @@ import { NgIcon } from "@ng-native/icons";
       </view>
    `,
 })
-export class UserField {
+export class PersonField {
    readonly icon = input.required<string>();
    readonly focused = input(false);
    /** The message to show, once the field has been touched and is wrong; empty otherwise. */

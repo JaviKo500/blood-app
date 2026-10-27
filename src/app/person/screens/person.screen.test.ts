@@ -4,7 +4,7 @@ import { Haptics } from '@ng-native/expo/haptics';
 import { NativeNavigation } from '@ng-native/router';
 import { render, screen, userEvent } from '@ng-native/testing';
 import { expect, test, vi } from 'vitest';
-import { groupDni, UserScreen } from './user.screen.ts';
+import { groupDni, PersonScreen } from './person.screen.ts';
 import { appConfig } from '../../app.config.ts';
 
 function setup(agrees = false) {
@@ -23,7 +23,7 @@ function setup(agrees = false) {
 
 test('reads the blood type and the cédula first', async () => {
   const { providers } = setup();
-  await render(UserScreen, { providers });
+  await render(PersonScreen, { providers });
 
   expect(screen.getByLabelText('Tipo de sangre A B negativo')).toBeTruthy();
   expect(screen.getByText('010 556 6038')).toBeTruthy();
@@ -31,7 +31,7 @@ test('reads the blood type and the cédula first', async () => {
 
 test('copies the cédula as digits when it is pressed', async () => {
   const { pasteboard, providers } = setup();
-  await render(UserScreen, { providers });
+  await render(PersonScreen, { providers });
 
   await userEvent.setup().press(screen.getByRole('button', { name: /^Cédula/ }));
 
@@ -41,16 +41,16 @@ test('copies the cédula as digits when it is pressed', async () => {
 
 test('opens the edit form', async () => {
   const { navigation, providers } = setup();
-  await render(UserScreen, { providers });
+  await render(PersonScreen, { providers });
 
   await userEvent.setup().press(screen.getByRole('button', { name: 'Editar persona' }));
 
-  expect(navigation.push).toHaveBeenCalledWith(['/home/user', '3', 'edit']);
+  expect(navigation.push).toHaveBeenCalledWith(['/home/person', '3', 'edit']);
 });
 
 test('asks before deleting the person', async () => {
   const { confirm, navigation, providers } = setup(false);
-  await render(UserScreen, { providers });
+  await render(PersonScreen, { providers });
 
   await userEvent.setup().press(screen.getByRole('button', { name: 'Eliminar persona' }));
 

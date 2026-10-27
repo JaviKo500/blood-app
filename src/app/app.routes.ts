@@ -18,16 +18,16 @@ export const routes: Routes = [
                   loadComponent: () => import('./home/screens/home.screen').then( m => m.HomeScreen ),
                },
                {
-                  path: 'user/new',
-                  loadComponent: () => import('./user/screens/user.form.screen').then( m => m.UserFormScreen ),
+                  path: 'person/new',
+                  loadComponent: () => import('./person/screens/person.form.screen').then( m => m.PersonFormScreen ),
                },
                {
-                  path: 'user/:id/edit',
-                  loadComponent: () => import('./user/screens/user.form.screen').then( m => m.UserFormScreen ),
+                  path: 'person/:id/edit',
+                  loadComponent: () => import('./person/screens/person.form.screen').then( m => m.PersonFormScreen ),
                },
                               {
-                  path: 'user/:id',
-                  loadComponent: () => import('./user/screens/user.screen').then( m => m.UserScreen ),
+                  path: 'person/:id',
+                  loadComponent: () => import('./person/screens/person.screen').then( m => m.PersonScreen ),
                },
             ]
          },
