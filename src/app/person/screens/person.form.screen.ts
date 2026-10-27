@@ -101,18 +101,18 @@ import { PersonModel } from "../model/person.model";
                               <pressable
                                  accessibilityRole="radio"
                                  [accessibilityLabel]="spoken(type)"
-                                 [accessibilityState]="{ checked: data().typeBlood === type }"
+                                 [accessibilityState]="{ checked: data().bloodTypeCode === type }"
                                  (press)="chooseBlood(type)"
-                                 [class]="data().typeBlood === type
+                                 [class]="data().bloodTypeCode === type
                                     ? 'border-red-700 bg-red-100 dark:border-red-300 dark:bg-red-900/40'
                                     : 'border-transparent bg-control hover:bg-neutral-200 dark:bg-neutral-800 dark:hover:bg-neutral-700'"
                                  class="min-h-14 flex-1 items-center justify-center rounded-xl border-2 transition-colors"
                               >
                                  <text
-                                    [class]="data().typeBlood === type ? 'text-red-700 dark:text-red-300' : 'text-black dark:text-neutral-50'"
+                                    [class]="data().bloodTypeCode === type ? 'text-red-700 dark:text-red-300' : 'text-black dark:text-neutral-50'"
                                     class="text-xl font-semibold"
                                  >{{ glyph(type) }}</text>
-                                 @if (data().typeBlood === type) {
+                                 @if (data().bloodTypeCode === type) {
                                     <view class="absolute top-1 right-1">
                                        <ng-icon name="lucideCheck" [size]="14" class="text-red-700 dark:text-red-300" />
                                     </view>
@@ -122,7 +122,7 @@ import { PersonModel } from "../model/person.model";
                         </view>
                      }
                   </view>
-                  @if (errorOf(person.typeBlood); as message) {
+                  @if (errorOf(person.bloodTypeCode); as message) {
                      <view class="flex-row items-center gap-1.5 px-1 pt-1">
                         <ng-icon name="lucideCircleAlert" [size]="14" class="text-brand dark:text-brand-light" />
                         <text accessibilityRole="alert" class="flex-1 text-sm text-brand dark:text-brand-light">{{ message }}</text>
@@ -208,14 +208,14 @@ export class PersonFormScreen implements OnInit {
 
    protected readonly editing = computed(() => !!this.id());
 
-   protected readonly data = signal<PersonForm>({ name: '', lastName: '', dni: '', typeBlood: '', phone: '', email: '' });
+   protected readonly data = signal<PersonForm>({ name: '', lastName: '', dni: '', bloodTypeCode: '', phone: '', email: '' });
    protected readonly person = form(this.data, path => {
       required(path.name, { message: 'Escribe los nombres' });
       required(path.lastName, { message: 'Escribe los apellidos' });
       required(path.dni, { message: 'Escribe la cédula' });
       maxLength(path.dni, 10);
       pattern(path.dni, /^\d{10}$/, { message: 'La cédula tiene 10 dígitos' });
-      required(path.typeBlood, { message: 'Elige el tipo de sangre' });
+      required(path.bloodTypeCode, { message: 'Elige el tipo de sangre' });
       pattern(path.phone, /^\+?[\d ]{7,15}$/, { message: 'Revisa el número: solo dígitos' });
       email(path.email, { message: 'Revisa el correo' });
    });
@@ -238,8 +238,8 @@ export class PersonFormScreen implements OnInit {
    ngOnInit(): void {
       if (!this.editing()) return;
       // TODO: look the person up by id once there is a store; until then every id edits this sample.
-      const { name, lastName, dni, typeBlood, phone = '', email = '' } = SAMPLE_PERSON;
-      this.data.set({ name, lastName, dni, typeBlood, phone, email });
+      const { name, lastName, dni, bloodTypeCode, phone = '', email = '' } = SAMPLE_PERSON;
+      this.data.set({ name, lastName, dni, bloodTypeCode, phone, email });
    }
 
    /** A field's first error, once the person has left it or tried to save. */
@@ -249,8 +249,8 @@ export class PersonFormScreen implements OnInit {
    }
 
    protected chooseBlood(type: string): void {
-      this.data.update(value => ({ ...value, typeBlood: type }));
-      this.person.typeBlood().markAsTouched();
+      this.data.update(value => ({ ...value, bloodTypeCode: type }));
+      this.person.bloodTypeCode().markAsTouched();
       this.haptics.select();
    }
 
@@ -270,7 +270,7 @@ interface PersonForm {
    name: string;
    lastName: string;
    dni: string;
-   typeBlood: string;
+   bloodTypeCode: string;
    phone: string;
    email: string;
 }
@@ -279,8 +279,8 @@ const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 const STACK_FONT_SCALE = 1.6;
 
 const SAMPLE_PERSON: PersonModel = {
-   id: 3,
-   typeBlood: 'AB-',
+   id: '3',
+   bloodTypeCode: 'AB-',
    name: 'Pablo Mesias',
    lastName: 'Gutierrez Urgiles',
    dni: '0105566038',

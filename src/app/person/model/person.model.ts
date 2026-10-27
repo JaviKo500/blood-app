@@ -10,6 +10,8 @@ export interface PersonModel {
    updatedAt?: string;
 }
 
+export type NewPersonModel = Omit<PersonModel, 'id' | 'createdAt' | 'updatedAt'>;
+
 export interface BloodType {
    code: string;
    createdAt?: string;

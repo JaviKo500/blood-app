@@ -77,7 +77,7 @@ export class PersonList {
    protected readonly tileWidth = computed(() => Math.round(TILE_WIDTH * Math.max(1, this.accessibility.fontScale())));
 
    protected readonly rows = computed(() =>
-      this.persons().map(person => ({ ...person, bloodType: bloodTypeGlyph(person.typeBlood), spoken: spokenPerson(person) }))
+      this.persons().map(person => ({ ...person, bloodType: bloodTypeGlyph(person.bloodTypeCode), spoken: spokenPerson(person) }))
    );
 }
 
@@ -89,7 +89,7 @@ export const bloodTypeGlyph = (type: string) => type.replace('-', '−');
 
 export const spokenPerson = (person: PersonModel) => [
    `${person.name} ${person.lastName}`.trim(),
-   `tipo de sangre ${spokenBloodType(person.typeBlood)}`,
+   `tipo de sangre ${spokenBloodType(person.bloodTypeCode)}`,
    person.dni.trim() ? `cédula ${spaced(person.dni.trim())}` : '',
 ].filter(Boolean).join(', ');
 

@@ -42,14 +42,14 @@ export class HomeScreen{
    protected readonly android = nativePlatform() === 'android';
 
    protected readonly persons: PersonModel[] = [
-      { id: 1, typeBlood: 'A+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
-      { id: 2, typeBlood: 'A-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
-      { id: 3, typeBlood: 'B+', name: 'Pablo Mesias', lastName: 'Gutierrez Urgiles', dni: '0105566038' },
-      { id: 4, typeBlood: 'B-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
-      { id: 5, typeBlood: 'AB+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
-      { id: 6, typeBlood: 'AB-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
-      { id: 7, typeBlood: 'O+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
-      { id: 8, typeBlood: 'O-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
+      { id: '1', bloodTypeCode: 'A+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
+      { id: '2', bloodTypeCode: 'A-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
+      { id: '3', bloodTypeCode: 'B+', name: 'Pablo Mesias', lastName: 'Gutierrez Urgiles', dni: '0105566038' },
+      { id: '4', bloodTypeCode: 'B-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
+      { id: '5', bloodTypeCode: 'AB+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
+      { id: '6', bloodTypeCode: 'AB-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
+      { id: '7', bloodTypeCode: 'O+', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
+      { id: '8', bloodTypeCode: 'O-', name: 'javiko', lastName: 'Gutierrez', dni: '0105566046' },
    ];
 
    protected add() {

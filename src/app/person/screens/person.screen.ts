@@ -178,8 +178,8 @@ export class PersonScreen{
    // TODO: look the person up by id once there is a store; until then every id shows this sample.
    protected readonly person = signal<PersonModel>(SAMPLE_PERSON);
 
-   protected readonly bloodType = computed(() => bloodTypeGlyph(this.person().typeBlood));
-   protected readonly spokenBlood = computed(() => spokenBloodType(this.person().typeBlood));
+   protected readonly bloodType = computed(() => bloodTypeGlyph(this.person().bloodTypeCode));
+   protected readonly spokenBlood = computed(() => spokenBloodType(this.person().bloodTypeCode));
    protected readonly groupedDni = computed(() => groupDni(this.person().dni));
    protected readonly spokenDni = computed(() => [...this.person().dni.trim()].join(' '));
 
@@ -238,8 +238,8 @@ export class PersonScreen{
 const COPIED_MS = 2000;
 
 const SAMPLE_PERSON: PersonModel = {
-   id: 3,
-   typeBlood: 'AB-',
+   id: '3',
+   bloodTypeCode: 'AB-',
    name: 'Pablo Mesias',
    lastName: 'Gutierrez Urgiles',
    dni: '0105566038',

@@ -6,8 +6,8 @@ import { PersonList, bloodTypeGlyph, spokenBloodType, spokenPerson } from './per
 import type { PersonModel } from '../model/person.model.ts';
 
 const persons: PersonModel[] = [
-  { id: 1, typeBlood: 'A+', name: 'Javiko', lastName: 'Gutierrez', dni: '0105566046' },
-  { id: 2, typeBlood: 'O-', name: 'Pablo Mesias', lastName: 'Gutierrez Urgiles', dni: '0105566038' },
+  { id: '1', bloodTypeCode: 'A+', name: 'Javiko', lastName: 'Gutierrez', dni: '0105566046' },
+  { id: '2', bloodTypeCode: 'O-', name: 'Pablo Mesias', lastName: 'Gutierrez Urgiles', dni: '0105566038' },
 ];
 
 test('draws a row per person with their blood type, name and dni', async () => {
@@ -47,7 +47,7 @@ test('emits the pressed person', async () => {
   await userEvent.setup().press(screen.getByRole('button', { name: /^Pablo Mesias Gutierrez Urgiles, tipo de sangre O negativo/ }));
 
   expect(personSelected).toHaveBeenCalledTimes(1);
-  expect(personSelected).toHaveBeenCalledWith(expect.objectContaining({ id: 2, name: 'Pablo Mesias' }));
+  expect(personSelected).toHaveBeenCalledWith(expect.objectContaining({ id: '2', name: 'Pablo Mesias' }));
 });
 
 test('shows the empty state when there are no persons', async () => {
