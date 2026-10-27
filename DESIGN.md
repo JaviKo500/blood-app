@@ -205,7 +205,7 @@ Firme y escaneable: una fila es una persona.
 - **Texto grande:** el nombre ocupa hasta dos líneas. Desde los tamaños de accesibilidad (`fontScale` ≥ 1,6) la fila se apila: bloque de sangre y chevron arriba, nombre sin límite de líneas y cédula a todo el ancho debajo, para que los 10 dígitos no se corten nunca.
 - **Oscuro:** superficie neutral 900 con borde hairline neutral 800, como las tarjetas agrupadas.
 - **Pulsado:** el fondo baja a neutral 100 (oscuro: neutral 800).
-- **Accesibilidad:** rol botón; la etiqueta dice nombre, apellidos y tipo de sangre.
+- **Accesibilidad:** rol botón con el hint «Abre la ficha»; la etiqueta dice nombre y apellidos, el tipo de sangre en palabras («tipo de sangre A B negativo», letras separadas y signo como «positivo» o «negativo») y la cédula dígito a dígito.
 - **Vacío:** texto centrado "No hay usuarios todavía" en Tinta suave.
 
 ### Chips

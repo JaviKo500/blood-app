@@ -12,7 +12,8 @@ import { UserModel } from "../model/user.model";
          @for (row of rows(); track row.id) {
             <pressable
                accessibilityRole="button"
-               [accessibilityLabel]="row.name + ' ' + row.lastName + ' ' + row.typeBlood"
+               [accessibilityLabel]="row.spoken"
+               accessibilityHint="Abre la ficha"
                (press)="userSelected.emit(row)"
                class="p-4 bg-white rounded-xl transition-colors hover:bg-neutral-100
                   focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2
@@ -73,7 +74,7 @@ export class UserList {
    protected readonly stacked = computed(() => this.accessibility.fontScale() >= STACK_FONT_SCALE);
 
    protected readonly rows = computed(() =>
-      this.users().map(user => ({ ...user, bloodType: bloodTypeGlyph(user.typeBlood) }))
+      this.users().map(user => ({ ...user, bloodType: bloodTypeGlyph(user.typeBlood), spoken: spokenUser(user) }))
    );
 }
 
@@ -81,3 +82,17 @@ const STACK_FONT_SCALE = 1.6;
 
 /** A hyphen is a short dash beside a plus; the minus sign is as wide as the plus it opposes. */
 export const bloodTypeGlyph = (type: string) => type.replace('-', '−');
+
+export const spokenUser = (user: UserModel) => [
+   `${user.name} ${user.lastName}`.trim(),
+   `tipo de sangre ${spokenBloodType(user.typeBlood)}`,
+   user.dni.trim() ? `cédula ${spaced(user.dni.trim())}` : '',
+].filter(Boolean).join(', ');
+
+export const spokenBloodType = (type: string) => {
+   const match = /^(AB|A|B|O)\s*([+-])$/i.exec(type.trim());
+   if (!match) return type.trim() || 'sin registrar';
+   return `${spaced(match[1].toUpperCase())} ${match[2] === '+' ? 'positivo' : 'negativo'}`;
+};
+
+const spaced = (text: string) => [...text].join(' ');

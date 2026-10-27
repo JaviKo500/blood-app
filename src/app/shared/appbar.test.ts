@@ -13,5 +13,5 @@ test('hands its users to the list', async () => {
   await render(HomeScreen, { providers: appConfig.providers });
 
   expect(screen.getAllByRole('button', { name: /Gutierrez/ })).toHaveLength(8);
-  expect(screen.getByRole('button', { name: 'Pablo Mesias Gutierrez Urgiles B+' })).toBeTruthy();
+  expect(screen.getByRole('button', { name: /^Pablo Mesias Gutierrez Urgiles, tipo de sangre B positivo/ })).toBeTruthy();
 });
