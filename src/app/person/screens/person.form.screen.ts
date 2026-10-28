@@ -9,8 +9,8 @@ import { NativeNavigation, TabSafeAreaView } from "@ng-native/router";
 import { AppBar } from "../../shared/appbar.shared";
 import { bloodTypeGlyph, spokenBloodType } from "../components/person-list";
 import { PersonField } from "../components/person-field";
-import { NewPersonModel, PersonModel } from "../model/person.model";
-import { PersonRepository } from "../data/person.repository";
+import { NewPersonModel } from "../model/person.model";
+import { PersonStore } from "../data/person.store";
 
 @Component({
    selector: 'person-form-screen',
@@ -203,7 +203,8 @@ export class PersonFormScreen implements OnInit {
    private readonly haptics = inject(Haptics);
    private readonly accessibility = inject(Accessibility);
    private readonly scheme = inject(ColorScheme);
-   private readonly repository = inject(PersonRepository);
+   private readonly store = inject(PersonStore);
+  
    protected readonly android = nativePlatform() === 'android';
 
    readonly id = input<string>();
@@ -237,10 +238,15 @@ export class PersonFormScreen implements OnInit {
    protected readonly glyph = bloodTypeGlyph;
    protected readonly spoken = (type: string) => `Tipo de sangre ${spokenBloodType(type)}`;
 
-   ngOnInit(): void {
-      if (!this.editing()) return;
-      // TODO: look the person up by id once there is a store; until then every id edits this sample.
-      const { name, lastName, dni, bloodTypeCode, phone = '', email = '' } = SAMPLE_PERSON;
+   async ngOnInit(): Promise<void> {
+      const id = this.id();
+      if (!id) return;
+      const person = await this.store.get(id);
+      if (!person) {
+         this.navigation.back();
+         return;
+      }
+      const { name, lastName, dni, bloodTypeCode, phone = '', email = '' } = person;
       this.data.set({ name, lastName, dni, bloodTypeCode, phone, email });
    }
 
@@ -260,7 +266,12 @@ export class PersonFormScreen implements OnInit {
       await submit(this.person, {
          action: async () => {
             const { phone, email, ...rest } = this.data();
-            await this.repository.create( {...rest, phone: phone || undefined, email: email || undefined} );
+            const input = {...rest, phone: phone || undefined, email: email || undefined};
+            if ( this.editing() ) {
+               await this.store.update( this.id()!, input )               
+            } else {
+               await this.store.create( input );
+            }
             this.haptics.notify('success');
             this.navigation.back();
          },
@@ -273,13 +284,3 @@ type PersonFormModel = Required<NewPersonModel>;
 
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 const STACK_FONT_SCALE = 1.6;
-
-const SAMPLE_PERSON: PersonModel = {
-   id: '3',
-   bloodTypeCode: 'AB-',
-   name: 'Pablo Mesias',
-   lastName: 'Gutierrez Urgiles',
-   dni: '0105566038',
-   phone: '0991234567',
-   email: 'pablo.gutierrez@example.com',
-};
