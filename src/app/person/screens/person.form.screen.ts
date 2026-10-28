@@ -9,7 +9,8 @@ import { NativeNavigation, TabSafeAreaView } from "@ng-native/router";
 import { AppBar } from "../../shared/appbar.shared";
 import { bloodTypeGlyph, spokenBloodType } from "../components/person-list";
 import { PersonField } from "../components/person-field";
-import { PersonModel } from "../model/person.model";
+import { NewPersonModel, PersonModel } from "../model/person.model";
+import { PersonRepository } from "../data/person.repository";
 
 @Component({
    selector: 'person-form-screen',
@@ -202,13 +203,14 @@ export class PersonFormScreen implements OnInit {
    private readonly haptics = inject(Haptics);
    private readonly accessibility = inject(Accessibility);
    private readonly scheme = inject(ColorScheme);
+   private readonly repository = inject(PersonRepository);
    protected readonly android = nativePlatform() === 'android';
 
    readonly id = input<string>();
 
    protected readonly editing = computed(() => !!this.id());
 
-   protected readonly data = signal<PersonForm>({ name: '', lastName: '', dni: '', bloodTypeCode: '', phone: '', email: '' });
+   protected readonly data = signal<PersonFormModel>({ name: '', lastName: '', dni: '', bloodTypeCode: '', phone: '', email: '' });
    protected readonly person = form(this.data, path => {
       required(path.name, { message: 'Escribe los nombres' });
       required(path.lastName, { message: 'Escribe los apellidos' });
@@ -257,7 +259,8 @@ export class PersonFormScreen implements OnInit {
    protected async save(): Promise<void> {
       await submit(this.person, {
          action: async () => {
-            // TODO: write the person to the store once persistence exists; for now it only goes back.
+            const { phone, email, ...rest } = this.data();
+            await this.repository.create( {...rest, phone: phone || undefined, email: email || undefined} );
             this.haptics.notify('success');
             this.navigation.back();
          },
@@ -266,14 +269,7 @@ export class PersonFormScreen implements OnInit {
    }
 }
 
-interface PersonForm {
-   name: string;
-   lastName: string;
-   dni: string;
-   bloodTypeCode: string;
-   phone: string;
-   email: string;
-}
+type PersonFormModel = Required<NewPersonModel>;
 
 const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 const STACK_FONT_SCALE = 1.6;
